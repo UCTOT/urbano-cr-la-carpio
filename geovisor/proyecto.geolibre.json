@@ -1,702 +1,625 @@
 {
-  "basemapOpacity": 1,
-  "basemapStyleUrl": "https://tiles.openfreemap.org/styles/positron",
-  "basemapVisible": true,
-  "blankBackgroundColor": null,
-  "comments": [],
-  "id": "geolibre-cr-la-carpio",
-  "layerGroups": [],
-  "layers": [
-    {
-      "geojson": {
-        "features": [
-          {
-            "geometry": {
-              "coordinates": [
-                [
-                  [
-                    -84.156261,
-                    9.963174
-                  ],
-                  [
-                    -84.155793,
-                    9.962898
-                  ],
-                  [
-                    -84.155288,
-                    9.962442
-                  ],
-                  [
-                    -84.154904,
-                    9.96198
-                  ],
-                  [
-                    -84.15455,
-                    9.961487
-                  ],
-                  [
-                    -84.154268,
-                    9.961007
-                  ],
-                  [
-                    -84.153992,
-                    9.960545
-                  ],
-                  [
-                    -84.153888,
-                    9.960392
-                  ],
-                  [
-                    -84.153558,
-                    9.960158
-                  ],
-                  [
-                    -84.153474,
-                    9.959919
-                  ],
-                  [
-                    -84.153092,
-                    9.959623
-                  ],
-                  [
-                    -84.152803,
-                    9.959482
-                  ],
-                  [
-                    -84.152221,
-                    9.959459
-                  ],
-                  [
-                    -84.152011,
-                    9.95941
-                  ],
-                  [
-                    -84.15159,
-                    9.959386
-                  ],
-                  [
-                    -84.15117,
-                    9.959236
-                  ],
-                  [
-                    -84.1509,
-                    9.959074
-                  ],
-                  [
-                    -84.150498,
-                    9.958858
-                  ],
-                  [
-                    -84.150234,
-                    9.958606
-                  ],
-                  [
-                    -84.149921,
-                    9.958288
-                  ],
-                  [
-                    -84.149805,
-                    9.958241
-                  ],
-                  [
-                    -84.149531,
-                    9.958131
-                  ],
-                  [
-                    -84.149081,
-                    9.958023
-                  ],
-                  [
-                    -84.148553,
-                    9.958131
-                  ],
-                  [
-                    -84.148072,
-                    9.958395
-                  ],
-                  [
-                    -84.147682,
-                    9.958702
-                  ],
-                  [
-                    -84.147603,
-                    9.958781
-                  ],
-                  [
-                    -84.147304,
-                    9.95908
-                  ],
-                  [
-                    -84.14707,
-                    9.959386
-                  ],
-                  [
-                    -84.146704,
-                    9.959608
-                  ],
-                  [
-                    -84.146385,
-                    9.959944
-                  ],
-                  [
-                    -84.146019,
-                    9.960142
-                  ],
-                  [
-                    -84.145713,
-                    9.960233
-                  ],
-                  [
-                    -84.145377,
-                    9.960197
-                  ],
-                  [
-                    -84.144616,
-                    9.960171
-                  ],
-                  [
-                    -84.144638,
-                    9.961128
-                  ],
-                  [
-                    -84.144677,
-                    9.961123
-                  ],
-                  [
-                    -84.144868,
-                    9.961101
-                  ],
-                  [
-                    -84.144866,
-                    9.961143
-                  ],
-                  [
-                    -84.144866,
-                    9.96115
-                  ],
-                  [
-                    -84.14484,
-                    9.961641
-                  ],
-                  [
-                    -84.144836,
-                    9.961716
-                  ],
-                  [
-                    -84.144813,
-                    9.962165
-                  ],
-                  [
-                    -84.145224,
-                    9.961996
-                  ],
-                  [
-                    -84.145545,
-                    9.962026
-                  ],
-                  [
-                    -84.145668,
-                    9.962197
-                  ],
-                  [
-                    -84.145671,
-                    9.962367
-                  ],
-                  [
-                    -84.145688,
-                    9.96279
-                  ],
-                  [
-                    -84.145757,
-                    9.963238
-                  ],
-                  [
-                    -84.14586,
-                    9.963771
-                  ],
-                  [
-                    -84.146169,
-                    9.963999
-                  ],
-                  [
-                    -84.146632,
-                    9.964227
-                  ],
-                  [
-                    -84.147136,
-                    9.964182
-                  ],
-                  [
-                    -84.147663,
-                    9.963941
-                  ],
-                  [
-                    -84.147999,
-                    9.963801
-                  ],
-                  [
-                    -84.148244,
-                    9.963748
-                  ],
-                  [
-                    -84.148705,
-                    9.964049
-                  ],
-                  [
-                    -84.149006,
-                    9.964479
-                  ],
-                  [
-                    -84.149923,
-                    9.964921
-                  ],
-                  [
-                    -84.150734,
-                    9.965212
-                  ],
-                  [
-                    -84.151778,
-                    9.965406
-                  ],
-                  [
-                    -84.152401,
-                    9.965636
-                  ],
-                  [
-                    -84.153038,
-                    9.965936
-                  ],
-                  [
-                    -84.153603,
-                    9.966338
-                  ],
-                  [
-                    -84.154001,
-                    9.966763
-                  ],
-                  [
-                    -84.154248,
-                    9.967243
-                  ],
-                  [
-                    -84.154719,
-                    9.965106
-                  ],
-                  [
-                    -84.154978,
-                    9.963991
-                  ],
-                  [
-                    -84.155611,
-                    9.964325
-                  ],
-                  [
-                    -84.155784,
-                    9.963503
-                  ],
-                  [
-                    -84.155898,
-                    9.963433
-                  ],
-                  [
-                    -84.15617,
-                    9.963374
-                  ],
-                  [
-                    -84.156261,
-                    9.963174
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            },
-            "properties": {
-              "caracter": "Límite administrativo referencial (sujeto a homologación institucional)",
-              "fuente": "OpenStreetMap contributors (ODbL)",
-              "nombre": "La Carpio (contorno referencial OSM)",
-              "nota": "Contorno referencial en OpenStreetMap (~67,6 ha). Pendiente de homologar el polígono operativo entre MSJ, INVU y MIVAH (48,2 ha vs. 63 ha).",
-              "referencia_osm": "La Carpio, Uruca, San José, Área Metropolitana de San José, San José, 10107, Costa Rica",
-              "superficie_aprox_ha": 67.56,
-              "tipo_unidad": "Asentamiento / sector (referencial)"
-            },
-            "type": "Feature"
-          }
-        ],
-        "type": "FeatureCollection"
-      },
-      "id": "cr-carpio-referencia-osm",
-      "metadata": {
-        "caveat": "Fuente externa abierta: OpenStreetMap contributors (ODbL). Contorno orientativo; el equipo interinstitucional (MSJ/INVU/MIVAH) debe acordar el polígono operativo definitivo (48,2 ha vs. 63 ha).",
-        "resolution": "Vectorial referencial (~67,6 ha, EPSG:4326)",
-        "sourceUrl": "/geovisor/capas/la_carpio_referencia_osm.geojson",
-        "status": "en_revision"
-      },
-      "name": "Contorno referencial de La Carpio, La Uruca (OSM ODbL)",
-      "opacity": 1,
-      "source": {
-        "data": "/geovisor/capas/la_carpio_referencia_osm.geojson",
-        "type": "geojson",
-        "url": "/geovisor/capas/la_carpio_referencia_osm.geojson"
-      },
-      "style": {
-        "blendMode": "normal",
-        "circleRadius": 6.0,
-        "clusterMaxZoom": 14,
-        "clusterRadius": 50,
-        "diagramDeclutter": false,
-        "diagramFields": [],
-        "diagramMinZoom": 0,
-        "diagramSize": 30,
-        "diagramSizeMode": "fixed",
-        "diagramSizeProperty": "",
-        "diagramType": "none",
-        "elevation3dEnabled": false,
-        "elevation3dOffset": 0,
-        "elevation3dVerticalScale": 1,
-        "extrusionAdvancedStyleEnabled": false,
-        "extrusionBase": 0,
-        "extrusionBaseExpression": "",
-        "extrusionBaseProperty": "",
-        "extrusionBaseScale": 1,
-        "extrusionColor": "#0d9488",
-        "extrusionColorExpression": "",
-        "extrusionEnabled": false,
-        "extrusionFloorHeight": 0,
-        "extrusionHeightExpression": "",
-        "extrusionHeightProperty": "height",
-        "extrusionHeightScale": 1,
-        "extrusionOpacity": 0.8,
-        "fillColor": "#0d9488",
-        "fillOpacity": 0.35,
-        "fillPattern": "none",
-        "fillPatternColor": "#115e59",
-        "fillPatternSvg": "",
-        "geometryGenerator": "none",
-        "geometryGeneratorBufferDistance": 1000,
-        "geometryGeneratorBufferProperty": "",
-        "geometryGeneratorCircleRadius": 5,
-        "geometryGeneratorFillColor": "#f59e0b",
-        "geometryGeneratorOpacity": 0.4,
-        "geometryGeneratorSizeMaxRadius": 24,
-        "geometryGeneratorSizeMaxValue": 100,
-        "geometryGeneratorSizeMinRadius": 4,
-        "geometryGeneratorSizeMinValue": 0,
-        "geometryGeneratorSizeProperty": "",
-        "geometryGeneratorStrokeColor": "#b45309",
-        "geometryGeneratorStrokeWidth": 2,
-        "heatmapColorRamp": "turbo",
-        "heatmapIntensity": 1,
-        "heatmapRadius": 30,
-        "heatmapWeightProperty": "",
-        "invertedFillEnabled": false,
-        "labels": {
-          "allowOverlap": false,
-          "anchor": "center",
-          "color": "#111827",
-          "colorExpression": "",
-          "dedupe": "off",
-          "enabled": false,
-          "expression": "",
-          "field": "",
-          "haloColor": "#ffffff",
-          "haloWidth": 1.5,
-          "maxWidth": 10,
-          "maxZoom": 24,
-          "minZoom": 0,
-          "numberDecimals": 0,
-          "numberFormatEnabled": false,
-          "numberLocale": "",
-          "offsetX": 0,
-          "offsetY": 0,
-          "opacityExpression": "",
-          "placement": "point",
-          "priorityExpression": "",
-          "rotation": 0,
-          "size": 12,
-          "sizeExpression": "",
-          "transform": "none",
-          "visibilityExpression": ""
-        },
-        "lineDecoration": "none",
-        "lineDecorationColor": "",
-        "lineDecorationSize": 12,
-        "lineDecorationSpacing": 80,
-        "markerColor": "#0d9488",
-        "markerEnabled": false,
-        "markerShape": "circle",
-        "markerSize": 18,
-        "markerSvg": "",
-        "maxZoom": 24,
-        "minZoom": 0,
-        "pointRenderer": "single",
-        "proportionalSizeEnabled": false,
-        "proportionalSizeMaxRadius": 24,
-        "proportionalSizeMaxValue": 100,
-        "proportionalSizeMinRadius": 4,
-        "proportionalSizeMinValue": 0,
-        "proportionalSizeProperty": "",
-        "rasterBrightnessMax": 1,
-        "rasterBrightnessMin": 0,
-        "rasterContrast": 0,
-        "rasterHueRotate": 0,
-        "rasterSaturation": 0,
-        "simpleStyleEnabled": false,
-        "strokeBlur": 0,
-        "strokeColor": "#115e59",
-        "strokeDash": [],
-        "strokeOpacity": 1,
-        "strokeWidth": 2.0,
-        "strokeWidthUnit": "pixels",
-        "textColor": "#111827",
-        "textHaloColor": "#ffffff",
-        "textHaloWidth": 2,
-        "textSize": 14,
-        "vectorRules": [],
-        "vectorStyleClassCount": 5,
-        "vectorStyleClassificationScheme": "equal-interval",
-        "vectorStyleColorRamp": "viridis",
-        "vectorStyleExpression": "",
-        "vectorStyleMode": "single",
-        "vectorStyleProperty": "",
-        "vectorStyleStops": [
-          {
-            "color": "#dbeafe",
-            "value": 0
-          },
-          {
-            "color": "#0d9488",
-            "value": 1
-          }
-        ]
-      },
-      "type": "geojson",
-      "visible": true
-    }
-  ],
-  "legend": {
-    "groupByLayer": true,
-    "order": [
-      "cr-carpio-referencia-osm"
-    ],
-    "overrides": {},
-    "title": "Capas del proyecto"
-  },
+  "version": "0.2.0",
+  "name": "Evaluación estratégica y prospectiva del asentamiento informal La Carpio como insumo para la construcción del Plan Maestro de Intervención Urbanística Integral, San José, Costa Rica.",
   "mapView": {
-    "bearing": 0,
     "center": [
       -84.1502,
       9.96309
     ],
-    "pitch": 0,
     "zoom": 14.8
   },
-  "metadata": {
-    "community": "Comunidad Urbana Copernicus Centroamérica",
-    "description": "La iniciativa propone reunir información territorial y ambiental de La Carpio para apoyar la formulación e implementación de su Plan Maestro de Intervención Urbanística Integral y el trabajo de las instituciones involucradas.",
-    "note": "Centroide declarado en S13: 9.96309, -84.15020 (La Carpio, Uruca, San José). Atención: resolver discrepancia documental de superficie entre 48,2 ha (polígono de formulario) y ≈ 63 ha (texto narrativo) antes de calcular indicadores.",
-    "planned_layers": [
-      {
-        "caveat": "Fuente externa abierta: OpenStreetMap contributors (ODbL). Contorno orientativo; el equipo interinstitucional (MSJ/INVU/MIVAH) debe acordar el polígono operativo definitivo (48,2 ha vs. 63 ha).",
-        "expected_file_hint": "geovisor/capas/la_carpio_referencia_osm.geojson",
-        "id": "cr-carpio-referencia-osm",
-        "status": "en_revision",
-        "title": "Contorno referencial de La Carpio, La Uruca (OSM ODbL)"
+  "basemapStyleUrl": "https://tiles.openfreemap.org/styles/positron",
+  "layers": [
+    {
+      "id": "cr-carpio-perimetro",
+      "name": "Perímetro del área de estudio",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/perimetro_zona_estudio.geojson"
       },
-      {
-        "caveat": "Debe documentar el acuerdo entre MSJ, INVU y MIVAH sobre las referencias de 48,2 ha y 63 ha.",
-        "expected_file_hint": "geovisor/capas/la_carpio_perimetro.geojson",
-        "id": "cr-carpio-perimetro",
-        "status": "en_preparacion",
-        "title": "Delimitación operativa homologada de La Carpio"
+      "visible": true,
+      "style": {
+        "fillColor": "#007F8B",
+        "strokeColor": "#14283F",
+        "strokeWidth": 2.5,
+        "fillOpacity": 0.12,
+        "vectorStyleMode": "single"
       },
-      {
-        "caveat": "Sujeto a disponibilidad de escenas con nubosidad < 10 % u ortofotos municipales.",
-        "expected_file_hint": "geovisor/capas/la_carpio_cobertura.geojson",
-        "id": "cr-carpio-cobertura-ndvi",
-        "status": "en_preparacion",
-        "title": "Áreas verdes, cobertura urbana e índice NDVI"
-      },
-      {
-        "caveat": "Requiere validar topología e insumos oficiales antes de priorizar intervenciones.",
-        "expected_file_hint": "geovisor/capas/la_carpio_amenazas.geojson",
-        "id": "cr-carpio-pendientes-amenazas",
-        "status": "en_preparacion",
-        "title": "Pendientes, hidrografía y exposición a amenazas"
-      },
-      {
-        "caveat": "Exige publicar definición de variables, pesos y fuente censal utilizada.",
-        "expected_file_hint": "geovisor/capas/la_carpio_indicadores.geojson",
-        "id": "cr-carpio-vulnerabilidad-sectores",
-        "status": "en_preparacion",
-        "title": "Índice multicriterio preliminar para el Plan Maestro"
+      "metadata": {
+        "group": "Línea base interinstitucional",
+        "status": "publicado",
+        "resolution": "Polígono vectorial; origen EPSG:5367, visualización EPSG:4326; área calculada ~61,0 ha"
       }
-    ],
-    "project_id": "cr-la-carpio",
-    "referential_frame_only": false,
-    "schema_version": "1.0.0"
-  },
-  "name": "Costa Rica · La Carpio: intervención urbanística integral",
-  "preferences": {
-    "environmentVariables": [],
-    "geocoding": {
-      "apiKeys": {},
-      "providerId": "nominatim"
     },
-    "map": {
-      "bounds": [
-        -180,
-        -85,
-        180,
-        85
-      ],
-      "coordinateFormat": "dd",
-      "ellipsoidId": "earth",
-      "maxPitch": 85,
-      "maxZoom": 24,
-      "minZoom": 0,
-      "projection": "mercator",
-      "renderWorldCopies": true,
-      "restrictBounds": false,
-      "scaleUnit": "metric",
-      "showPointerElevation": false,
-      "terrainEnabled": false,
-      "zoomToNewLayers": true
-    }
-  },
-  "primaryRenderer": "maplibre",
-  "selectedLayerId": "cr-carpio-referencia-osm",
-  "styles": {
-    "cr-carpio-referencia-osm": {
-      "blendMode": "normal",
-      "circleRadius": 6.0,
-      "clusterMaxZoom": 14,
-      "clusterRadius": 50,
-      "diagramDeclutter": false,
-      "diagramFields": [],
-      "diagramMinZoom": 0,
-      "diagramSize": 30,
-      "diagramSizeMode": "fixed",
-      "diagramSizeProperty": "",
-      "diagramType": "none",
-      "elevation3dEnabled": false,
-      "elevation3dOffset": 0,
-      "elevation3dVerticalScale": 1,
-      "extrusionAdvancedStyleEnabled": false,
-      "extrusionBase": 0,
-      "extrusionBaseExpression": "",
-      "extrusionBaseProperty": "",
-      "extrusionBaseScale": 1,
-      "extrusionColor": "#0d9488",
-      "extrusionColorExpression": "",
-      "extrusionEnabled": false,
-      "extrusionFloorHeight": 0,
-      "extrusionHeightExpression": "",
-      "extrusionHeightProperty": "height",
-      "extrusionHeightScale": 1,
-      "extrusionOpacity": 0.8,
-      "fillColor": "#0d9488",
-      "fillOpacity": 0.35,
-      "fillPattern": "none",
-      "fillPatternColor": "#115e59",
-      "fillPatternSvg": "",
-      "geometryGenerator": "none",
-      "geometryGeneratorBufferDistance": 1000,
-      "geometryGeneratorBufferProperty": "",
-      "geometryGeneratorCircleRadius": 5,
-      "geometryGeneratorFillColor": "#f59e0b",
-      "geometryGeneratorOpacity": 0.4,
-      "geometryGeneratorSizeMaxRadius": 24,
-      "geometryGeneratorSizeMaxValue": 100,
-      "geometryGeneratorSizeMinRadius": 4,
-      "geometryGeneratorSizeMinValue": 0,
-      "geometryGeneratorSizeProperty": "",
-      "geometryGeneratorStrokeColor": "#b45309",
-      "geometryGeneratorStrokeWidth": 2,
-      "heatmapColorRamp": "turbo",
-      "heatmapIntensity": 1,
-      "heatmapRadius": 30,
-      "heatmapWeightProperty": "",
-      "invertedFillEnabled": false,
-      "labels": {
-        "allowOverlap": false,
-        "anchor": "center",
-        "color": "#111827",
-        "colorExpression": "",
-        "dedupe": "off",
-        "enabled": false,
-        "expression": "",
-        "field": "",
-        "haloColor": "#ffffff",
-        "haloWidth": 1.5,
-        "maxWidth": 10,
-        "maxZoom": 24,
-        "minZoom": 0,
-        "numberDecimals": 0,
-        "numberFormatEnabled": false,
-        "numberLocale": "",
-        "offsetX": 0,
-        "offsetY": 0,
-        "opacityExpression": "",
-        "placement": "point",
-        "priorityExpression": "",
-        "rotation": 0,
-        "size": 12,
-        "sizeExpression": "",
-        "transform": "none",
-        "visibilityExpression": ""
+    {
+      "id": "local-indice-multiamenaza-hex",
+      "name": "Índice local de multiamenaza por hexágono",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/indice_multiamenaza_local.geojson"
       },
-      "lineDecoration": "none",
-      "lineDecorationColor": "",
-      "lineDecorationSize": 12,
-      "lineDecorationSpacing": 80,
-      "markerColor": "#0d9488",
-      "markerEnabled": false,
-      "markerShape": "circle",
-      "markerSize": 18,
-      "markerSvg": "",
-      "maxZoom": 24,
-      "minZoom": 0,
-      "pointRenderer": "single",
-      "proportionalSizeEnabled": false,
-      "proportionalSizeMaxRadius": 24,
-      "proportionalSizeMaxValue": 100,
-      "proportionalSizeMinRadius": 4,
-      "proportionalSizeMinValue": 0,
-      "proportionalSizeProperty": "",
-      "rasterBrightnessMax": 1,
-      "rasterBrightnessMin": 0,
-      "rasterContrast": 0,
-      "rasterHueRotate": 0,
-      "rasterSaturation": 0,
-      "simpleStyleEnabled": false,
-      "strokeBlur": 0,
-      "strokeColor": "#115e59",
-      "strokeDash": [],
-      "strokeOpacity": 1,
-      "strokeWidth": 2.0,
-      "strokeWidthUnit": "pixels",
-      "textColor": "#111827",
-      "textHaloColor": "#ffffff",
-      "textHaloWidth": 2,
-      "textSize": 14,
-      "vectorRules": [],
-      "vectorStyleClassCount": 5,
-      "vectorStyleClassificationScheme": "equal-interval",
-      "vectorStyleColorRamp": "viridis",
-      "vectorStyleExpression": "",
-      "vectorStyleMode": "single",
-      "vectorStyleProperty": "",
-      "vectorStyleStops": [
-        {
-          "color": "#dbeafe",
-          "value": 0
-        },
-        {
-          "color": "#0d9488",
-          "value": 1
-        }
-      ]
+      "visible": true,
+      "style": {
+        "fillColor": "#bdbdbd",
+        "strokeColor": "#334155",
+        "strokeWidth": 0.8,
+        "fillOpacity": 0.68,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Índice de multiamenaza local",
+        "status": "publicado",
+        "resolution": "304 hexágonos de ~30 m; intersecciones calculadas en EPSG:5367; salida EPSG:4326"
+      }
+    },
+    {
+      "id": "local-restricciones-desarrollo-hex",
+      "name": "Restricciones y condicionantes para desarrollo urbano",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/restricciones_desarrollo_hex.geojson"
+      },
+      "visible": true,
+      "style": {
+        "fillColor": "#dc2626",
+        "strokeColor": "#dc2626",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.38,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Restricciones de desarrollo",
+        "status": "publicado",
+        "resolution": "281 hexágonos con restricción o condicionante; derivada de polígonos locales en EPSG:5367; salida EPSG:4326"
+      }
+    },
+    {
+      "id": "cr-carpio-hex-poblacion",
+      "name": "Distribución de Población — Malla Hexagonal 30 m",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/malla_hexagonal_poblacion.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#0F766E",
+        "strokeColor": "#CC4400",
+        "strokeWidth": 0.5,
+        "fillOpacity": 0.7,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Estimación poblacional",
+        "status": "publicado",
+        "resolution": "Hexágonos ~30 m (área ≈ 779 m²), EPSG:4326"
+      }
+    },
+    {
+      "id": "local-sectores-estimacion-geojson",
+      "name": "Estimación de población por sectores",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/sectores_estimacion_geojson.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#c2410c",
+        "strokeColor": "#c2410c",
+        "strokeWidth": 1.1,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Estimación de población",
+        "status": "publicado",
+        "resolution": "polygon; 9 entidades; EPSG:4326"
+      }
+    },
+    {
+      "id": "local-deslizamientos",
+      "name": "Amenaza por deslizamientos",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/deslizamientos.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#dc2626",
+        "strokeColor": "#dc2626",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.55,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Riesgos",
+        "status": "publicado",
+        "resolution": "Categorías de susceptibilidad a deslizamientos disueltas (EPSG:4326)"
+      }
+    },
+    {
+      "id": "local-inundaciones",
+      "name": "Amenaza por inundación",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/inundaciones.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#2563eb",
+        "strokeColor": "#2563eb",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Riesgos",
+        "status": "publicado",
+        "resolution": "polygon; 2 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-proteccion-rios",
+      "name": "Zonas de protección de ríos",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/proteccion_rios.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#16a34a",
+        "strokeColor": "#16a34a",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Protección ambiental",
+        "status": "publicado",
+        "resolution": "polygon; 17 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-pendientes",
+      "name": "Pendientes del terreno",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/pendientes.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#f59e0b",
+        "strokeColor": "#f59e0b",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.55,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Base física",
+        "status": "publicado",
+        "resolution": "4 rangos de pendiente disueltos y optimizados para web (EPSG:4326)"
+      }
+    },
+    {
+      "id": "local-cuerpos-agua",
+      "name": "Cuerpos de agua",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/cuerpos_agua.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#0284c7",
+        "strokeColor": "#0284c7",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Hidrología",
+        "status": "publicado",
+        "resolution": "polygon; 43 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-curvas-nivel-1m",
+      "name": "Curvas de nivel cada 1 m",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/curvas_nivel_1m.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#64748b",
+        "strokeColor": "#64748b",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Base física",
+        "status": "publicado",
+        "resolution": "line; 219 entidades; EPSG:5367 -> EPSG:4326; simplificación visual 0.5 m"
+      }
+    },
+    {
+      "id": "local-sectores-estimacion-ajustada-shp",
+      "name": "Estimación poblacional ajustada por sector",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/sectores_estimacion_ajustada_shp.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#ea580c",
+        "strokeColor": "#ea580c",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Estimación de población",
+        "status": "publicado",
+        "resolution": "polygon; 9 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-sectores-estimacion-shp",
+      "name": "Estimación poblacional por sector (Shapefile)",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/sectores_estimacion_shp.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#c2410c",
+        "strokeColor": "#c2410c",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Estimación de población",
+        "status": "publicado",
+        "resolution": "polygon; 9 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-open-buildings-local",
+      "name": "Huellas de edificios Open Buildings (Open Buildings)",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/open_buildings.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#78716c",
+        "strokeColor": "#78716c",
+        "strokeWidth": 1.1,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Edificaciones",
+        "status": "publicado",
+        "resolution": "polygon; 4,127 entidades; EPSG:4326"
+      }
+    },
+    {
+      "id": "local-incidentes-cme",
+      "name": "Incidentes CME 2019–2026",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/incidentes_cme_2019_2026.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#7e22ce",
+        "strokeColor": "#7e22ce",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Riesgos",
+        "status": "publicado",
+        "resolution": "point; 44 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-predios-catastrales",
+      "name": "Predios catastrales",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/predios_catastrales.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#64748b",
+        "strokeColor": "#64748b",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Catastro",
+        "status": "publicado",
+        "resolution": "polygon; 5,421 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-sectores-carpio",
+      "name": "Sectores de La Carpio",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/sectores_carpio.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#7c3aed",
+        "strokeColor": "#7c3aed",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Delimitación de sectores",
+        "status": "publicado",
+        "resolution": "polygon; 9 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-techos-encuesta",
+      "name": "Techos del levantamiento local",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/techos_encuesta.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#a16207",
+        "strokeColor": "#a16207",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Edificaciones",
+        "status": "publicado",
+        "resolution": "polygon; 4,178 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-terrenos-estado",
+      "name": "Terrenos del Estado",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/terrenos_estado.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#15803d",
+        "strokeColor": "#15803d",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Terrenos del Estado",
+        "status": "publicado",
+        "resolution": "polygon; 5 entidades; EPSG:8908 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-usos-suelo",
+      "name": "Usos de suelo",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/usos_suelo.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#0f766e",
+        "strokeColor": "#0f766e",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Usos del suelo",
+        "status": "publicado",
+        "resolution": "polygon; 7,422 entidades; EPSG:5367 -> EPSG:4326"
+      }
+    },
+    {
+      "id": "local-vialidad",
+      "name": "Vialidad del área de estudio",
+      "type": "geojson",
+      "source": {
+        "type": "url",
+        "url": "https://copernicuscentroamerica.github.io/urbano-cr-la-carpio/geovisor/capas/vialidad.geojson"
+      },
+      "visible": false,
+      "style": {
+        "fillColor": "#334155",
+        "strokeColor": "#334155",
+        "strokeWidth": 1.2,
+        "fillOpacity": 0.22,
+        "vectorStyleMode": "single"
+      },
+      "metadata": {
+        "group": "Red vial",
+        "status": "publicado",
+        "resolution": "line; 153 entidades; EPSG:5367 -> EPSG:4326"
+      }
     }
-  },
-  "version": "0.2.0"
+  ],
+  "styles": {
+    "cr-carpio-perimetro": {
+      "fillColor": "#007F8B",
+      "strokeColor": "#14283F",
+      "strokeWidth": 2.5,
+      "fillOpacity": 0.12,
+      "vectorStyleMode": "single"
+    },
+    "local-indice-multiamenaza-hex": {
+      "fillColor": "#bdbdbd",
+      "strokeColor": "#334155",
+      "strokeWidth": 0.8,
+      "fillOpacity": 0.68,
+      "vectorStyleMode": "single"
+    },
+    "local-restricciones-desarrollo-hex": {
+      "fillColor": "#dc2626",
+      "strokeColor": "#dc2626",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.38,
+      "vectorStyleMode": "single"
+    },
+    "cr-carpio-hex-poblacion": {
+      "fillColor": "#0F766E",
+      "strokeColor": "#CC4400",
+      "strokeWidth": 0.5,
+      "fillOpacity": 0.7,
+      "vectorStyleMode": "single"
+    },
+    "local-sectores-estimacion-geojson": {
+      "fillColor": "#c2410c",
+      "strokeColor": "#c2410c",
+      "strokeWidth": 1.1,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-deslizamientos": {
+      "fillColor": "#dc2626",
+      "strokeColor": "#dc2626",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.55,
+      "vectorStyleMode": "single"
+    },
+    "local-inundaciones": {
+      "fillColor": "#2563eb",
+      "strokeColor": "#2563eb",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-proteccion-rios": {
+      "fillColor": "#16a34a",
+      "strokeColor": "#16a34a",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-pendientes": {
+      "fillColor": "#f59e0b",
+      "strokeColor": "#f59e0b",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.55,
+      "vectorStyleMode": "single"
+    },
+    "local-cuerpos-agua": {
+      "fillColor": "#0284c7",
+      "strokeColor": "#0284c7",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-curvas-nivel-1m": {
+      "fillColor": "#64748b",
+      "strokeColor": "#64748b",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-sectores-estimacion-ajustada-shp": {
+      "fillColor": "#ea580c",
+      "strokeColor": "#ea580c",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-sectores-estimacion-shp": {
+      "fillColor": "#c2410c",
+      "strokeColor": "#c2410c",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-open-buildings-local": {
+      "fillColor": "#78716c",
+      "strokeColor": "#78716c",
+      "strokeWidth": 1.1,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-incidentes-cme": {
+      "fillColor": "#7e22ce",
+      "strokeColor": "#7e22ce",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-predios-catastrales": {
+      "fillColor": "#64748b",
+      "strokeColor": "#64748b",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-sectores-carpio": {
+      "fillColor": "#7c3aed",
+      "strokeColor": "#7c3aed",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-techos-encuesta": {
+      "fillColor": "#a16207",
+      "strokeColor": "#a16207",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-terrenos-estado": {
+      "fillColor": "#15803d",
+      "strokeColor": "#15803d",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-usos-suelo": {
+      "fillColor": "#0f766e",
+      "strokeColor": "#0f766e",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    },
+    "local-vialidad": {
+      "fillColor": "#334155",
+      "strokeColor": "#334155",
+      "strokeWidth": 1.2,
+      "fillOpacity": 0.22,
+      "vectorStyleMode": "single"
+    }
+  }
 }

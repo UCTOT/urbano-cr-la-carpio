@@ -1,0 +1,202 @@
+[
+  {
+    "key": "proj-p1",
+    "number": "LÁMINA P1",
+    "shortTitle": "P1 · Índice Multiamenaza",
+    "title": "Índice Compuesto Exploratorio de Multiamenaza (0–100) e Incidentes CME (2019–2026)",
+    "sensor": "Susceptibilidad a deslizamientos + Inundación potencial + Reportes CME 2019–2026",
+    "formula": "Indice_Multiamenaza = 100 * ( 0.5 * Score_Deslizamiento + 0.5 * Fraccion_Inundacion )",
+    "reading": "Concentra los valores Altos y Moderados (127 hexágonos con 13,879 hab) a lo largo de los escarpes norte (río Virilla) y sur (río Torres), coincidiendo con los puntos históricos de emergencia CME.",
+    "imageRel": "assets/img/atlas_proyecto/lamina_p1.png",
+    "coords": [
+      [
+        -84.155989,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.957583
+      ],
+      [
+        -84.155989,
+        9.957583
+      ]
+    ],
+    "swatches": [
+      {
+        "color": "#FC8D59",
+        "label": "Multiamenaza Alta (8 hex)",
+        "desc": "318 hab en bordes críticos de cañón"
+      },
+      {
+        "color": "#FEE08B",
+        "label": "Multiamenaza Moderada (119 hex)",
+        "desc": "13,561 hab · Prioridad de drenaje y taludes"
+      },
+      {
+        "color": "#91CF60",
+        "label": "Multiamenaza Baja (142 hex)",
+        "desc": "14,987 hab · Plataforma central"
+      },
+      {
+        "color": "#1A9850",
+        "label": "Multiamenaza Muy Baja (23 hex)",
+        "desc": "Núcleo interior estable"
+      },
+      {
+        "color": "#38BDF8",
+        "label": "Incidentes CME (44 puntos)",
+        "desc": "Emergencias atendidas 2019–2026"
+      }
+    ]
+  },
+  {
+    "key": "proj-p2",
+    "number": "LÁMINA P2",
+    "shortTitle": "P2 · Restricciones (281 hex)",
+    "title": "Evaluación de Restricciones y Condicionantes al Desarrollo Urbanístico",
+    "sensor": "Zonas de protección de ríos + Susceptibilidad alta/moderada a deslizamientos",
+    "formula": "Restringido = Retiro_Fluvial OR Deslizamiento_Alto_MuyAlto ; Condicionado = Desliz_Moderado",
+    "reading": "Separa explícitamente la condición normativa/física de restricción respecto del puntaje promedio, evitando que una baja inundación diluya la alerta por retiro fluvial o talud inestable.",
+    "imageRel": "assets/img/atlas_proyecto/lamina_p2.png",
+    "coords": [
+      [
+        -84.155989,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.957583
+      ],
+      [
+        -84.155989,
+        9.957583
+      ]
+    ],
+    "swatches": [
+      {
+        "color": "#DC2626",
+        "label": "Restringido (266 hex · 87.5%)",
+        "desc": "Intersección con retiro de río o deslizamiento alto"
+      },
+      {
+        "color": "#F59E0B",
+        "label": "Condicionado (15 hex · 4.9%)",
+        "desc": "Deslizamiento moderado sujeto a obras técnicas"
+      },
+      {
+        "color": "#0284C7",
+        "label": "Zona de Protección Fluvial",
+        "desc": "Cañones de los ríos Virilla y Torres"
+      }
+    ]
+  },
+  {
+    "key": "proj-p3",
+    "number": "LÁMINA P3",
+    "shortTitle": "P3 · Población Hexagonal",
+    "title": "Distribución Microterritorial de Población (30,252 Habitantes · Escenario 5.4 hab/viv)",
+    "sensor": "Open Buildings v3 + Levantamiento de techos + Escenarios sectoriales MSJ/MIVAH",
+    "formula": "Pob_h = Mayores_Restos( Pob_Sector * Viviendas_Piecewise_h / sum(Viviendas_Sector) )",
+    "reading": "Identifica los hexágonos de mayor concentración habitacional (>200 hab/celda) para dimensionar redes de agua, espacio público, equipamiento y rutas de evacuación.",
+    "imageRel": "assets/img/atlas_proyecto/lamina_p3.png",
+    "coords": [
+      [
+        -84.155989,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.957583
+      ],
+      [
+        -84.155989,
+        9.957583
+      ]
+    ],
+    "swatches": [
+      {
+        "color": "#9A3412",
+        "label": "> 200 hab / hexágono",
+        "desc": "Núcleos de máxima compacidad habitacional"
+      },
+      {
+        "color": "#EA580C",
+        "label": "130 – 200 hab / hexágono",
+        "desc": "Densidad residencial consolidada alta"
+      },
+      {
+        "color": "#FDBA74",
+        "label": "60 – 130 hab / hexágono",
+        "desc": "Densidad media barrial"
+      },
+      {
+        "color": "#FEF08A",
+        "label": "≤ 60 hab / hexágono",
+        "desc": "Bordes, accesos y áreas de equipamiento"
+      }
+    ]
+  },
+  {
+    "key": "proj-p4",
+    "number": "LÁMINA P4",
+    "shortTitle": "P4 · Deslizamientos y Ríos",
+    "title": "Susceptibilidad a Deslizamientos Disuelta y Corredores Fluviales Virilla–Torres",
+    "sensor": "Mapa local de susceptibilidad a deslizamientos + Retiros fluviales en EPSG:4326",
+    "formula": "Clases CATEGORIA_ 1 (Muy baja) a 5 (Muy alta) recortadas y disueltas",
+    "reading": "Ilustra el confinamiento topográfico de La Carpio sobre una meseta estrecha flanqueada por cañones fluviales profundos con alta susceptibilidad geotécnica.",
+    "imageRel": "assets/img/atlas_proyecto/lamina_p4.png",
+    "coords": [
+      [
+        -84.155989,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.966978
+      ],
+      [
+        -84.144282,
+        9.957583
+      ],
+      [
+        -84.155989,
+        9.957583
+      ]
+    ],
+    "swatches": [
+      {
+        "color": "#D73027",
+        "label": "5 · Susceptibilidad Muy Alta",
+        "desc": "Taludes escarpados de los cañones fluviales"
+      },
+      {
+        "color": "#FC8D59",
+        "label": "4 · Susceptibilidad Alta",
+        "desc": "Bordes de corona de ladera"
+      },
+      {
+        "color": "#FEE08B",
+        "label": "3 · Susceptibilidad Moderada",
+        "desc": "Transición hacia la plataforma"
+      },
+      {
+        "color": "#91CF60",
+        "label": "1–2 · Susceptibilidad Baja / Muy Baja",
+        "desc": "Meseta central consolidada"
+      }
+    ]
+  }
+]
