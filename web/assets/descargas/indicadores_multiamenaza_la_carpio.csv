@@ -1,7 +1,7 @@
-clase_multiamenaza,hexagonos_30m_n,poblacion_esc_5_4_hab,viviendas_estimadas,incidentes_cme_2019_2026
-Muy alto,0,0,0.0,0
-Alto,0,0,0.0,0
-Moderado,47,2714,502.0,14
-Bajo,81,7693,1429.0,9
-Muy bajo,172,19845,3678.0,21
-Sin dato,4,0,0.0,0
+﻿categoria,hexagonos,poblacion,porcentaje_poblacion
+Muy alto,588,4687,15.49
+Alto,0,0,0.0
+Moderado,80,998,3.3
+Bajo,203,2879,9.52
+Muy bajo,1579,21681,71.67
+Sin dato,20,7,0.02

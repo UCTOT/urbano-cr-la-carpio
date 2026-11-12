@@ -4,7 +4,7 @@
 
 ## Insumos
 
-- `malla_hexagonal_poblacion.geojson`: 304 hexágonos, aproximadamente 30 m de vértice a vértice.
+- `malla_hexagonal_poblacion.geojson`: 2.470 hexágonos de 20 m entre vértices opuestos, recortados al perímetro de estudio.
 - `deslizamientos.geojson`: polígonos con categorías `CATEGORIA_` (1–5) y nombres `AMENAZ_DES` (muy baja a muy alta).
 - `inundaciones.geojson`: huellas de inundación potencial (`ORIGEN_COB`); no contiene severidad ni periodo de retorno.
 - `proteccion_rios.geojson`: polígonos de protección con `TIPO` y `DIST_PROTE`; se usan como restricción urbana, no como puntaje de amenaza.
@@ -17,7 +17,7 @@ Todos los cálculos de área se realizan en CRTM05 (EPSG:5367); el GeoJSON de sa
 
 Para cada hexágono se calcula:
 
-1. **Susceptibilidad a deslizamientos.** Se transforma `CATEGORIA_` 1–5 a 0, 0,25, 0,50, 0,75 y 1, respectivamente. `desliz_score_mapeado_0_1` es el promedio ponderado por área dentro de la cobertura cartografiada. `desliz_score_0_1` pondera por el área completa del hexágono, de modo que una mancha que cubre solo una fracción no se interpreta como si ocupara toda la celda. También se guardan `desliz_cobertura_pct`, `estado_cobertura_deslizamientos` y el porcentaje en categorías alta o muy alta.
+1. **Susceptibilidad a deslizamientos.** Solo entran al índice las categorías `CATEGORIA_` 4 y 5 (ALTA y MUY ALTA), con puntajes 0,75 y 1. Las categorías 1, 2 y 3 no aportan puntaje, aunque sí cuentan en `desliz_cobertura_pct`. `desliz_score_mapeado_0_1` promedia las categorías consideradas, ponderadas por área. `desliz_score_0_1` pondera por el área completa del hexágono, por lo que una intersección parcial aporta solo en su proporción. Se reportan `desliz_considerada_pct`, los porcentajes moderada/alta/muy alta y el estado de cobertura.
 2. **Inundación potencial (`inundacion_potencial_pct`).** Porcentaje del área del hexágono que intersecta los polígonos de inundación. Es cobertura cartográfica, no profundidad ni intensidad.
 3. **Puntaje compuesto exploratorio:**
 
@@ -28,15 +28,9 @@ Para cada hexágono se calcula:
 
 ## Restricciones para el desarrollo urbano
 
-Las restricciones se evalúan separadamente del índice de amenaza; no reducen ni reemplazan el puntaje de riesgo:
+Las zonas de protección de río se incorporan al índice como condición MUY ALTA (puntaje 100) porque existe población asentada en estos espacios. La población de esas celdas se incluye en el total expuesto; la cartografía usada es la capa recibida, no un deslinde jurídico nuevo. Las categorías de deslizamiento ALTA y MUY ALTA (4–5) se consideran en el índice y se marcan en la capa de alertas para planificación. Las categorías MUY BAJA y BAJA (1–2) no se consideran para el puntaje ni activan esta alerta. Los incidentes CME siguen siendo conteos de contraste, no componentes del índice.
 
-- **Protección de ríos:** cualquier intersección de un hexágono con `proteccion_rios.geojson` lo marca `Restringido`. Se conservan en atributos el porcentaje de intersección, `TIPO` y `DIST_PROTE`.
-- **Deslizamiento alto o muy alto:** cualquier intersección con `CATEGORIA_` 4 o 5 (`AMENAZ_DES` alta o muy alta) lo marca `Restringido`.
-- **Deslizamiento moderado:** una intersección con `CATEGORIA_` 3 lo marca `Condicionado`, salvo que otra regla ya lo clasifique como restringido.
-- **Muy bajo o bajo:** permanecen en el índice de amenaza, pero no activan por sí solas la restricción dura del modelo.
-
-La capa `restricciones_desarrollo_hex.geojson` incluye los hexágonos restringidos o condicionados y se dibuja sobre el índice: rojo para `Restringido`, ámbar para `Condicionado`. Si la intersección es parcial, el sombreado cubre la celda completa para señalarla como alerta de planificación; los porcentajes de solape y las capas fuente permiten consultar el alcance real dentro del hexágono. Esta clasificación aplica el criterio indicado por el equipo al dato disponible; no sustituye la delimitación normativa ni la validación legal de las autoridades competentes.
-
+La capa `restricciones_desarrollo_hex.geojson` incluye celdas que intersectan protección de río o deslizamiento categoría 4–5: verde para protección de río, rojo para deslizamiento y morado para el solape. Si la intersección es parcial, se resalta el hexágono completo; los porcentajes de solape y las capas fuente permiten consultar el alcance real. Este criterio de planificación no sustituye delimitaciones normativas ni validación legal de las autoridades competentes.
 ## Distribución de población de 30.252
 
 La malla original no contiene un campo por hexágono para el escenario 5,4. Se distribuye la población de cada sector desde `pob_alta_5_4_hab` usando como peso las `viviendas_estimadas` de los hexágonos que intersectan su polígono. Cuando un hexágono cruza sectores, sus viviendas se reparten según la proporción de área de intersección. Dentro de cada sector se normalizan los pesos y se aplica el método de mayores restos para que las asignaciones sean enteras y conserven exactamente el total sectorial. El nuevo campo es `pob_esc_5_4_hab`.
@@ -61,4 +55,9 @@ python scripts/build_local_multihazard_index.py
 ```
 
 El script genera `geovisor/capas/indice_multiamenaza_local.geojson`, que se declara en `geovisor/layers.json`.
-También genera `geovisor/capas/restricciones_desarrollo_hex.geojson` para visualizar las celdas restringidas o condicionadas.
+También genera `geovisor/capas/restricciones_desarrollo_hex.geojson` para visualizar conservación natural y celdas con amenaza por deslizamiento moderada, alta o muy alta.
+
+
+## Tablas estadísticas para dashboard
+
+Las tablas base se encuentran en `geovisor/estadisticas/`. Incluyen población por hexágono, categoría de multiamenaza, sector y combinación de amenazas, además de `indicadores_principales.csv`. Se regeneran con `python scripts/build_risk_statistics.py`. La asignación por sector usa el sector con mayor área de intersección por celda para no duplicar población; las combinaciones de amenazas son excluyentes. La población en protección de ríos forma parte de Muy Alta y del total expuesto.

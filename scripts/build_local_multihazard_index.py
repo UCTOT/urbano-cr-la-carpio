@@ -14,6 +14,7 @@ import shapely
 from pyproj import Transformer
 from shapely import STRtree, make_valid, transform, union_all
 from shapely.geometry import Polygon, shape
+from shapely.geometry import MultiPoint
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -100,20 +101,57 @@ def classify_index(value: float | None) -> str:
     return "Muy alto"
 
 
+def make_hex_grid(study_geom: Any, old_geoms: np.ndarray, old_features: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], np.ndarray]:
+    """Create clipped hexagons with a 20 m vertex-to-vertex diameter in EPSG:5367."""
+    radius = 10.0
+    dx, dy = math.sqrt(3) * radius, 1.5 * radius
+    minx, miny, maxx, maxy = study_geom.bounds
+    old_tree = STRtree(old_geoms)
+    old_weights = np.asarray([max(0.0, float((f.get('properties') or {}).get('viviendas_estimadas') or 0)) for f in old_features])
+    features, geoms = [], []
+    row = 0
+    y = miny - dy
+    while y <= maxy + dy:
+        offset = (row % 2) * dx / 2
+        x = minx - dx + offset
+        while x <= maxx + dx:
+            vertices = [(x + radius * math.cos(math.radians(60*k)), y + radius * math.sin(math.radians(60*k))) for k in range(6)]
+            cell = Polygon(vertices).intersection(study_geom)
+            if not cell.is_empty and cell.area > 1:
+                candidates = old_tree.query(cell)
+                homes = 0.0
+                for j in candidates:
+                    overlap = cell.intersection(old_geoms[int(j)]).area
+                    if overlap > 0:
+                        homes += old_weights[int(j)] * overlap / old_geoms[int(j)].area
+                geoms.append(cell)
+                to_wgs = Transformer.from_crs('EPSG:5367','EPSG:4326',always_xy=True)
+                cell_wgs = transform(np.asarray([cell],dtype=object), to_wgs.transform, interleaved=False)[0]
+                features.append({'type':'Feature','geometry':shapely.geometry.mapping(cell_wgs), 'properties':{'viviendas_estimadas':homes}})
+            x += dx
+        y += dy
+        row += 1
+    return features, np.asarray(geoms,dtype=object)
+
+
 def main() -> None:
-    hex_fc = read_geojson(CAPAS / "malla_hexagonal_poblacion.geojson")
+    original_grid = read_geojson(CAPAS / "malla_hexagonal_poblacion.geojson")
     landslide_fc = read_geojson(CAPAS / "deslizamientos.geojson")
     flood_fc = read_geojson(CAPAS / "inundaciones.geojson")
     river_fc = read_geojson(CAPAS / "proteccion_rios.geojson")
     sectors_fc = read_geojson(CAPAS / "sectores_estimacion_geojson.geojson")
     incident_fc = read_geojson(CAPAS / "incidentes_cme_2019_2026.geojson")
 
-    hex_features = hex_fc.get("features", [])
-    if not hex_features:
+    old_features = original_grid.get('features', [])
+    if not old_features:
         raise ValueError("La malla hexagonal no contiene entidades.")
-    hex_geometries, hex_feature_indexes = metric_geometries(hex_features)
-    if len(hex_geometries) != len(hex_features):
-        raise ValueError("Hay hexágonos sin geometría; no es posible asignar el índice a todos.")
+    old_geometries, _ = metric_geometries(old_features)
+    perimeter_fc = read_geojson(CAPAS / 'perimetro_zona_estudio.geojson')
+    perimeter_geometries, _ = metric_geometries(perimeter_fc.get('features', []))
+    study_geom = union_all(perimeter_geometries)
+    hex_features, hex_geometries = make_hex_grid(study_geom, old_geometries, old_features)
+    hex_fc = {'type':'FeatureCollection','name':'malla_hexagonal_20m_poblacion','features':hex_features}
+    (CAPAS / 'malla_hexagonal_20m_poblacion.geojson').write_text(json.dumps(hex_fc,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
     hex_tree = STRtree(hex_geometries)
     hex_areas = shapely.area(hex_geometries)
     if np.any(hex_areas <= 0):
@@ -130,6 +168,8 @@ def main() -> None:
     # Allocate each sector's selected 5.4-persons-per-dwelling estimate to
     # hexagons by existing estimated dwellings, split at sector boundaries.
     sector_features = sectors_fc.get("features", [])
+    river_geometries, river_source_indexes = metric_geometries(river_fc.get("features", []))
+    river_union = union_all(river_geometries)
     sector_geometries, sector_source_indexes = metric_geometries(sector_features)
     sector_tree = STRtree(sector_geometries)
     weights_by_sector: dict[str, dict[int, float]] = {}
@@ -152,6 +192,8 @@ def main() -> None:
         homes = max(0.0, float(properties.get("viviendas_estimadas") or 0))
         if homes == 0:
             continue
+        # Keep population on both sides of the river-protection overlay so
+        # residents in restricted areas remain visible in exposure totals.
         sector_indexes, areas = intersected_areas(sector_tree, sector_geometries, hex_geom)
         covered_area = float(areas.sum())
         if covered_area <= 0:
@@ -182,7 +224,8 @@ def main() -> None:
     if sum(population_by_hex) != sector_population_total:
         raise ValueError("La población asignada a hexágonos no conserva el total sectorial.")
 
-    # Landslide score: ordinal category 1..5 mapped to 0..1, area-weighted.
+    # Only moderate, high and very-high landslide classes enter the index.
+    # Very-low/low classes remain part of mapped coverage but score zero.
     landslide_geometries, landslide_source_indexes = metric_geometries(landslide_fc.get("features", []))
     landslide_categories = np.asarray(
         [
@@ -193,7 +236,7 @@ def main() -> None:
     )
     if np.any((landslide_categories < 1) | (landslide_categories > 5)):
         raise ValueError("CATEGORIA_ de deslizamientos debe estar entre 1 y 5.")
-    landslide_scores = (landslide_categories - 1.0) / 4.0
+    landslide_scores = np.where(landslide_categories >= 4, (landslide_categories - 1.0) / 4.0, 0.0)
     landslide_tree = STRtree(landslide_geometries)
 
     # Flood indicator is the fraction of each hex intersecting the mapped
@@ -201,8 +244,7 @@ def main() -> None:
     flood_geometries, _ = metric_geometries(flood_fc.get("features", []))
     flood_union = union_all(flood_geometries)
 
-    # River-protection polygons are hard urban-development constraints.
-    river_geometries, river_source_indexes = metric_geometries(river_fc.get("features", []))
+    # River protection is a highest-class multihazard constraint.
     river_tree = STRtree(river_geometries)
 
     # Historical events are counts for validation, not a score component:
@@ -244,17 +286,24 @@ def main() -> None:
         land_coverage_pct = min(100.0, covered_area / float(area) * 100.0) if covered_area > 0 else 0.0
         if covered_area > 0:
             weighted_hazard_area = float(np.dot(intersect_areas, landslide_scores[candidate_indexes]))
-            land_score_mapped = weighted_hazard_area / covered_area
+            qualifying_area = float(intersect_areas[landslide_categories[candidate_indexes] >= 4].sum())
+            land_score_mapped = weighted_hazard_area / qualifying_area if qualifying_area > 0 else None
             land_score = weighted_hazard_area / float(area)
-            high_indexes = landslide_categories[candidate_indexes] >= 4
-            high_area_pct = min(100.0, float(intersect_areas[high_indexes].sum()) / float(area) * 100.0)
+            qualifying_indexes = landslide_categories[candidate_indexes] >= 4
+            qualifying_area_pct = min(100.0, float(intersect_areas[qualifying_indexes].sum()) / float(area) * 100.0)
             moderate_indexes = landslide_categories[candidate_indexes] == 3
+            high_indexes = landslide_categories[candidate_indexes] == 4
+            very_high_indexes = landslide_categories[candidate_indexes] == 5
             moderate_area_pct = min(100.0, float(intersect_areas[moderate_indexes].sum()) / float(area) * 100.0)
+            high_area_pct = min(100.0, float(intersect_areas[high_indexes].sum()) / float(area) * 100.0)
+            very_high_area_pct = min(100.0, float(intersect_areas[very_high_indexes].sum()) / float(area) * 100.0)
         else:
             land_score_mapped = None
             land_score = None
             high_area_pct = 0.0
             moderate_area_pct = 0.0
+            very_high_area_pct = 0.0
+            qualifying_area_pct = 0.0
 
         flood_area = float(shapely.area(shapely.intersection(geom, flood_union))) if not flood_union.is_empty else 0.0
         flood_pct = min(100.0, max(0.0, flood_area / float(area) * 100.0))
@@ -273,23 +322,33 @@ def main() -> None:
                 river_distances.add(str(river_props["DIST_PROTE"]))
 
         river_restriction = river_area > 1e-7
-        landslide_restriction = high_area_pct > 0
+        landslide_restriction = qualifying_area_pct > 0
         if river_restriction and landslide_restriction:
-            development_status = "Restringido: protección de río y deslizamiento alto/muy alto"
+            development_type = "Conservación natural y amenaza por deslizamiento"
         elif river_restriction:
-            development_status = "Restringido: protección de río"
+            development_type = "Conservación natural"
         elif landslide_restriction:
-            development_status = "Restringido: deslizamiento alto/muy alto"
-        elif moderate_area_pct > 0:
-            development_status = "Condicionado: deslizamiento moderado"
+            development_type = "Amenaza por deslizamiento"
+        else:
+            development_type = "No identificada"
+        if river_restriction and landslide_restriction:
+            development_status = "Conservación natural y deslizamiento moderado/alto/muy alto"
+        elif river_restriction:
+            development_status = "Conservación natural: protección de río"
+        elif landslide_restriction:
+            development_status = "Deslizamiento moderado/alto/muy alto"
         elif land_coverage_pct == 0:
             development_status = "Sin cobertura de deslizamientos"
         else:
             development_status = "Sin restricción identificada en las capas revisadas"
+        if river_restriction:
+            land_score = 1.0
         if land_score is None:
             index_value = None
         else:
             index_value = 100.0 * (0.5 * land_score + 0.5 * (flood_pct / 100.0))
+            if river_restriction:
+                index_value = 100.0
             index_values.append(index_value)
         class_name = classify_index(index_value)
         classes[class_name] += 1
@@ -309,13 +368,16 @@ def main() -> None:
                 "desliz_score_mapeado_0_1": round(land_score_mapped, 6) if land_score_mapped is not None else None,
                 "desliz_cobertura_pct": round(land_coverage_pct, 3),
                 "estado_cobertura_deslizamientos": coverage_status,
-                "desliz_alta_muy_alta_pct": round(high_area_pct, 3),
+                "desliz_considerada_pct": round(qualifying_area_pct, 3),
+                "desliz_alta_pct": round(high_area_pct, 3),
+                "desliz_muy_alta_pct": round(very_high_area_pct, 3),
+                "desliz_alta_muy_alta_pct": round(high_area_pct + very_high_area_pct, 3),
                 "desliz_moderada_pct": round(moderate_area_pct, 3),
                 "inundacion_potencial_pct": round(flood_pct, 3),
                 "proteccion_rio_pct": round(river_pct, 3),
                 "restriccion_proteccion_rio": river_restriction,
                 "restriccion_deslizamiento": landslide_restriction,
-                "restriccion_desarrollo": "Restringido" if river_restriction or landslide_restriction else ("Condicionado" if moderate_area_pct > 0 else "No identificada"),
+                "restriccion_desarrollo": "Conservación natural y amenaza por deslizamiento" if river_restriction and landslide_restriction else ("Conservación natural" if river_restriction else development_type),
                 "estado_desarrollo": development_status,
                 "proteccion_rio_tipo": "; ".join(sorted(river_types)) if river_types else None,
                 "proteccion_rio_distancias": "; ".join(sorted(river_distances)) if river_distances else None,
@@ -334,7 +396,7 @@ def main() -> None:
                 "properties": props,
             }
         )
-        if river_restriction or landslide_restriction or moderate_area_pct > 0:
+        if river_restriction or landslide_restriction:
             restriction_features.append(
                 {
                     "type": "Feature",
@@ -347,6 +409,7 @@ def main() -> None:
                         "proteccion_rio_tipo": props["proteccion_rio_tipo"],
                         "proteccion_rio_distancias": props["proteccion_rio_distancias"],
                         "desliz_alta_muy_alta_pct": props["desliz_alta_muy_alta_pct"],
+                        "desliz_considerada_pct": props["desliz_considerada_pct"],
                         "desliz_moderada_pct": props["desliz_moderada_pct"],
                         "pob_esc_5_4_hab": props["pob_esc_5_4_hab"],
                         "indice_multiamenaza_0_100": props["indice_multiamenaza_0_100"],
@@ -355,8 +418,6 @@ def main() -> None:
             )
 
     total_homes = sum(float((f.get("properties") or {}).get("viviendas_estimadas") or 0) for f in hex_features)
-    if len(output_features) != 304:
-        raise ValueError(f"Se esperaban 304 hexágonos y se generaron {len(output_features)}.")
     out = {
         "type": "FeatureCollection",
         "name": "indice_multiamenaza_local_la_carpio",
@@ -374,16 +435,19 @@ def main() -> None:
         json.dumps(restriction_fc, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8"
     )
 
-    print(f"Hexágonos generados: {len(output_features)}")
+    print(f"Hexágonos de 20 m (vértice a vértice): {len(output_features)}")
+    exposed_population = sum(f["properties"]["pob_esc_5_4_hab"] for f in output_features if f["properties"]["clase_multiamenaza"] in ("Alto", "Muy alto") or f["properties"]["restriccion_proteccion_rio"])
+    print(f"Población expuesta (Alto/Muy alto + protección de río): {exposed_population:,}")
     print(f"Población asignada (escenario 5,4): {sum(population_by_hex):,} hab.; viviendas ponderadas de origen: {total_homes:,.0f}")
     print(f"Cobertura media de deslizamientos: {float(np.mean(land_coverage_values)):.2f}%")
     if index_values:
         print(f"Índice local 0–100: mínimo {min(index_values):.2f}; máximo {max(index_values):.2f}; media {float(np.mean(index_values)):.2f}")
     print("Clases:", json.dumps(dict(classes), ensure_ascii=False))
     print(f"Eventos CME asignados: {sum(c['total'] for c in event_counts)}; fuera de hexágonos: {events_outside_hex}")
-    restricted_count = sum(f["properties"]["restriccion_desarrollo"] == "Restringido" for f in output_features)
-    conditional_count = sum(f["properties"]["restriccion_desarrollo"] == "Condicionado" for f in output_features)
-    print(f"Celdas restringidas: {restricted_count}; condicionadas: {conditional_count}; capa de restricciones: {len(restriction_features)}")
+    river_count = sum(f["properties"]["restriccion_proteccion_rio"] for f in output_features)
+    landslide_count = sum(f["properties"]["restriccion_deslizamiento"] for f in output_features)
+    both_count = sum(f["properties"]["restriccion_desarrollo"] == "Conservación natural y amenaza por deslizamiento" for f in output_features)
+    print(f"Celdas: conservación natural {river_count}; con deslizamiento alto/muy alto {landslide_count}; ambas {both_count}; capa de alertas {len(restriction_features)}")
     print(f"Salida: {output_path.relative_to(ROOT)}")
     print(f"Restricciones: {restriction_path.relative_to(ROOT)}")
 

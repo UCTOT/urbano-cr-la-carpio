@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "project_id": "cr-la-carpio",
-  "title": "La Carpio (San José): población hexagonal, multiamenaza y restricciones urbanísticas",
+  "title": "Capas publicadas para análisis territorial de La Carpio",
   "country": {
     "code": "CR",
     "name": "Costa Rica"
@@ -49,34 +49,136 @@
   ],
   "layers": [
     {
-      "id": "cr-carpio-perimetro",
-      "title": "Perímetro del área de estudio",
-      "group": "Línea base interinstitucional",
+      "id": "cr-carpio-hex-poblacion",
+      "title": "Distribución de Población — Malla Hexagonal 20 m",
+      "group": "Estimación poblacional",
       "format": "geojson",
       "geometry_type": "polygon",
       "status": "publicado",
-      "source_path": "geovisor/capas/perimetro_zona_estudio.geojson",
-      "expected_file_hint": "geovisor/capas/perimetro_zona_estudio.geojson",
-      "resolution": "Polígono vectorial; origen EPSG:5367, visualización EPSG:4326; área calculada ~61,0 ha",
+      "source_path": "geovisor/capas/malla_hexagonal_20m_poblacion.geojson",
+      "expected_file_hint": "geovisor/capas/malla_hexagonal_20m_poblacion.geojson",
+      "resolution": "Hexágonos de 20 m entre vértices opuestos; EPSG:5367 → EPSG:4326",
       "style": {
-        "fill_color": "#007F8B",
-        "fill_opacity": 0.12,
-        "stroke_color": "#14283F",
-        "stroke_width": 2.5,
-        "visible_by_default": true
+        "fill_color": "#FF6B35",
+        "fill_opacity": 0.7,
+        "stroke_color": "#CC4400",
+        "stroke_width": 0.5,
+        "visible_by_default": true,
+        "fill_color_expression": [
+          "step",
+          [
+            "coalesce",
+            [
+              "to-number",
+              [
+                "get",
+                "viviendas_estimadas"
+              ]
+            ],
+            0
+          ],
+          "#FED7AA",
+          0.8,
+          "#FB923C",
+          1.8,
+          "#EA580C",
+          2.8,
+          "#9A3412"
+        ]
       },
-      "caveat": "Derivado del archivo local Limite.shp. El perímetro está en revisión y requiere homologación interinstitucional; el área calculada (~61,0 ha) difiere de las 48,2 ha del formulario."
+      "caveat": "Estimación basada en Google Open Buildings v3. Factor base: 4.5 personas/vivienda. Modelo piecewise calibrado con datos locales (ratio Google/local = 0.988).",
+      "default_visible": true
+    },
+    {
+      "id": "local-cuerpos-agua",
+      "title": "Cuerpos de agua",
+      "group": "Hidrología",
+      "format": "geojson",
+      "geometry_type": "polygon",
+      "status": "publicado",
+      "source_path": "geovisor/capas/cuerpos_agua.geojson",
+      "expected_file_hint": "geovisor/capas/cuerpos_agua.geojson",
+      "resolution": "polygon; 43 entidades; EPSG:5367 -> EPSG:4326",
+      "default_visible": false,
+      "style": {
+        "fill_color": "#0284c7",
+        "fill_opacity": 0.22,
+        "stroke_color": "#0284c7",
+        "stroke_width": 1.2,
+        "visible_by_default": false
+      },
+      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
+    },
+    {
+      "id": "local-incidentes-cme",
+      "title": "Incidentes CME 2019–2026",
+      "group": "Riesgos",
+      "format": "geojson",
+      "geometry_type": "point",
+      "status": "publicado",
+      "source_path": "geovisor/capas/incidentes_cme_2019_2026.geojson",
+      "expected_file_hint": "geovisor/capas/incidentes_cme_2019_2026.geojson",
+      "resolution": "point; 44 entidades; EPSG:5367 -> EPSG:4326",
+      "default_visible": false,
+      "style": {
+        "fill_color": "#7e22ce",
+        "fill_opacity": 0.22,
+        "stroke_color": "#7e22ce",
+        "stroke_width": 1.2,
+        "visible_by_default": false
+      },
+      "caveat": "Se excluyeron únicamente los atributos DIRECCION, POBL_MENOR, POBL_ADULT y ADULTO_MAY. Se conservaron los demás atributos y la geometría puntual original. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
+    },
+    {
+      "id": "local-terrenos-estado",
+      "title": "Terrenos del Estado",
+      "group": "Terrenos del Estado",
+      "format": "geojson",
+      "geometry_type": "polygon",
+      "status": "publicado",
+      "source_path": "geovisor/capas/terrenos_estado.geojson",
+      "expected_file_hint": "geovisor/capas/terrenos_estado.geojson",
+      "resolution": "polygon; 5 entidades; EPSG:8908 -> EPSG:4326",
+      "default_visible": false,
+      "style": {
+        "fill_color": "#15803d",
+        "fill_opacity": 0.22,
+        "stroke_color": "#15803d",
+        "stroke_width": 1.2,
+        "visible_by_default": false
+      },
+      "caveat": "Incluye identificadores registrales y valores de propiedades. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
+    },
+    {
+      "id": "local-sectores-estimacion-geojson",
+      "title": "Estimación de población por sectores",
+      "group": "Estimación de población",
+      "format": "geojson",
+      "geometry_type": "polygon",
+      "status": "publicado",
+      "source_path": "geovisor/capas/sectores_estimacion_geojson.geojson",
+      "expected_file_hint": "geovisor/capas/sectores_estimacion_geojson.geojson",
+      "resolution": "polygon; 9 entidades; EPSG:4326",
+      "default_visible": false,
+      "style": {
+        "fill_color": "#c2410c",
+        "fill_opacity": 0.22,
+        "stroke_color": "#c2410c",
+        "stroke_width": 1.1,
+        "visible_by_default": false
+      },
+      "caveat": "Estimación por sector; revisar diferencias con el Shapefile y la metodología. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
     },
     {
       "id": "local-indice-multiamenaza-hex",
-      "title": "Índice local de multiamenaza por hexágono",
+      "title": "Índice local de multiamenaza por hexágono de 20 m",
       "group": "Índice de multiamenaza local",
       "format": "geojson",
       "geometry_type": "polygon",
       "status": "publicado",
-      "source_path": "geovisor/capas/indice_multiamenaza_local.geojson",
-      "expected_file_hint": "geovisor/capas/indice_multiamenaza_local.geojson",
-      "resolution": "304 hexágonos de ~30 m; intersecciones calculadas en EPSG:5367; salida EPSG:4326",
+      "source_path": "geovisor/capas/indice_multiamenaza_local_20m.geojson",
+      "expected_file_hint": "geovisor/capas/indice_multiamenaza_local_20m.geojson",
+      "resolution": "Malla hexagonal con 20 m entre vértices opuestos; EPSG:5367 → EPSG:4326",
       "default_visible": true,
       "style": {
         "fill_color": "#bdbdbd",
@@ -101,52 +203,20 @@
         "fill_opacity": 0.68,
         "stroke_color": "#334155",
         "stroke_width": 0.8,
-        "visible_by_default": true,
-        "fill_color_categories": [
-          {
-            "value": "Muy alto",
-            "label": "Multiamenaza Muy Alta (80–100)",
-            "color": "#d73027"
-          },
-          {
-            "value": "Alto",
-            "label": "Multiamenaza Alta (60–<80)",
-            "color": "#fc8d59"
-          },
-          {
-            "value": "Moderado",
-            "label": "Multiamenaza Moderada (40–<60)",
-            "color": "#fee08b"
-          },
-          {
-            "value": "Bajo",
-            "label": "Multiamenaza Baja (20–<40)",
-            "color": "#91cf60"
-          },
-          {
-            "value": "Muy bajo",
-            "label": "Multiamenaza Muy Baja (0–<20)",
-            "color": "#1a9850"
-          },
-          {
-            "value": "Sin dato",
-            "label": "Sin cobertura de deslizamientos",
-            "color": "#808080"
-          }
-        ]
+        "visible_by_default": true
       },
-      "caveat": "Índice exploratorio: 50% contribución areal de susceptibilidad a deslizamientos y 50% proporción del hexágono dentro de polígonos de inundación potencial. La capa de inundación no tiene severidad; el historial CME se muestra como conteo de contraste y no se suma al índice. Cuatro celdas sin cobertura de deslizamientos quedan Sin dato; las celdas con cobertura parcial llevan indicador. La población por celda se distribuye desde pob_alta_5_4_hab (total sectorial 30.252), escenario estimado, no censo. Pesos y clases requieren validación técnica. Simbología: verde muy bajo, verde claro bajo, amarillo moderado, naranja alto, rojo muy alto y gris sin dato. La aptitud se muestra aparte: protección de río o deslizamiento alto/muy alto = Restringido; deslizamiento moderado = Condicionado."
+      "caveat": "Índice local exploratorio: 50% deslizamientos ALTA/MUY ALTA (CATEGORIA_ 4–5) y 50% proporción de inundación potencial. La protección de ríos se incorpora como condición de riesgo MUY ALTO (índice 100) y la población de esas celdas se incluye en la población expuesta. Población total distribuida: 30.252; se conserva el total sectorial. Cinco clases: Muy bajo, Bajo, Moderado, Alto, Muy alto."
     },
     {
       "id": "local-restricciones-desarrollo-hex",
-      "title": "Restricciones y condicionantes para desarrollo urbano",
+      "title": "Protección de ríos y deslizamientos altos/muy altos",
       "group": "Restricciones de desarrollo",
       "format": "geojson",
       "geometry_type": "polygon",
       "status": "publicado",
-      "source_path": "geovisor/capas/restricciones_desarrollo_hex.geojson",
-      "expected_file_hint": "geovisor/capas/restricciones_desarrollo_hex.geojson",
-      "resolution": "281 hexágonos con restricción o condicionante; derivada de polígonos locales en EPSG:5367; salida EPSG:4326",
+      "source_path": "geovisor/capas/restricciones_desarrollo_hex_20m.geojson",
+      "expected_file_hint": "geovisor/capas/restricciones_desarrollo_hex_20m.geojson",
+      "resolution": "Hexágonos de 20 m; protección de ríos y CATEGORIA_ 4–5; EPSG:5367 → EPSG:4326",
       "default_visible": true,
       "style": {
         "fill_color": "#dc2626",
@@ -156,501 +226,34 @@
             "get",
             "restriccion_desarrollo"
           ],
-          "Restringido",
+          "Conservación natural",
+          "#16a34a",
+          "Amenaza por deslizamiento",
           "#dc2626",
-          "Condicionado",
-          "#f59e0b",
-          "#00000000"
+          "Conservación natural y amenaza por deslizamiento",
+          "#7e22ce",
+          "rgba(0,0,0,0)"
         ],
         "fill_opacity": 0.38,
-        "stroke_color": "#dc2626",
+        "stroke_color": "#b91c1c",
         "stroke_color_expression": [
           "match",
           [
             "get",
             "restriccion_desarrollo"
           ],
-          "Restringido",
+          "Conservación natural",
+          "#15803d",
+          "Amenaza por deslizamiento",
           "#b91c1c",
-          "Condicionado",
-          "#d97706",
-          "#00000000"
+          "Conservación natural y amenaza por deslizamiento",
+          "#6b21a8",
+          "rgba(0,0,0,0)"
         ],
         "stroke_width": 1.2,
-        "visible_by_default": true,
-        "fill_color_categories": [
-          {
-            "value": "Restringido",
-            "label": "Restringido (retiro fluvial o deslizamiento alto/muy alto · 266 hex)",
-            "color": "#dc2626"
-          },
-          {
-            "value": "Condicionado",
-            "label": "Condicionado (deslizamiento moderado · 15 hex)",
-            "color": "#f59e0b"
-          }
-        ]
+        "visible_by_default": true
       },
-      "caveat": "Criterio analítico por intersección: cualquier área de protección de ríos o deslizamiento ALTA/MUY ALTA marca Restringido; MODERADA marca Condicionado; categorías BAJA/MUY BAJA no son restricción dura, pero siguen dentro del índice de amenaza. El sombreado cubre el hexágono completo cuando hay intersección parcial; consultar porcentajes y las capas fuente para delimitar el área exacta. No sustituye la delimitación o validación legal de la autoridad competente. Rojo: Restringido; ámbar: Condicionado."
-    },
-    {
-      "id": "cr-carpio-hex-poblacion",
-      "title": "Distribución de Población — Malla Hexagonal 30 m",
-      "group": "Estimación poblacional",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/malla_hexagonal_poblacion.geojson",
-      "expected_file_hint": "geovisor/capas/malla_hexagonal_poblacion.geojson",
-      "resolution": "Hexágonos ~30 m (área ≈ 779 m²), EPSG:4326",
-      "style": {
-        "fill_color": [
-          "step",
-          [
-            "coalesce",
-            [
-              "to-number",
-              [
-                "get",
-                "pob_total"
-              ]
-            ],
-            0
-          ],
-          "#FEF08A",
-          50,
-          "#FDBA74",
-          100,
-          "#FB923C",
-          160,
-          "#EA580C",
-          220,
-          "#9A3412"
-        ],
-        "fill_opacity": 0.7,
-        "stroke_color": "#CC4400",
-        "stroke_width": 0.5,
-        "visible_by_default": false,
-        "fill_color_categories": [
-          {
-            "value": "0-50",
-            "label": "< 50 hab / hexágono",
-            "color": "#FEF08A"
-          },
-          {
-            "value": "50-100",
-            "label": "50 – 100 hab / hexágono",
-            "color": "#FDBA74"
-          },
-          {
-            "value": "100-160",
-            "label": "100 – 160 hab / hexágono",
-            "color": "#FB923C"
-          },
-          {
-            "value": "160-220",
-            "label": "160 – 220 hab / hexágono",
-            "color": "#EA580C"
-          },
-          {
-            "value": ">220",
-            "label": "> 220 hab / hexágono",
-            "color": "#9A3412"
-          }
-        ]
-      },
-      "caveat": "Estimación basada en Google Open Buildings v3. Factor base: 4.5 personas/vivienda. Modelo piecewise calibrado con datos locales (ratio Google/local = 0.988)."
-    },
-    {
-      "id": "local-sectores-estimacion-geojson",
-      "title": "Estimación de población por sectores",
-      "group": "Estimación de población",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/sectores_estimacion_geojson.geojson",
-      "expected_file_hint": "geovisor/capas/sectores_estimacion_geojson.geojson",
-      "resolution": "polygon; 9 entidades; EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#c2410c",
-        "fill_opacity": 0.22,
-        "stroke_color": "#c2410c",
-        "stroke_width": 1.1,
-        "visible_by_default": false
-      },
-      "caveat": "Estimación por sector; revisar diferencias con el Shapefile y la metodología. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-deslizamientos",
-      "title": "Amenaza por deslizamientos",
-      "group": "Riesgos",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/deslizamientos.geojson",
-      "expected_file_hint": "geovisor/capas/deslizamientos.geojson",
-      "resolution": "Categorías de susceptibilidad a deslizamientos disueltas (EPSG:4326)",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#dc2626",
-        "fill_opacity": 0.55,
-        "stroke_color": "#dc2626",
-        "stroke_width": 1.2,
-        "visible_by_default": false,
-        "fill_color_attribute": "CATEGORIA_",
-        "fill_color_categories": [
-          {
-            "value": 1,
-            "label": "1 · Muy baja",
-            "color": "#1A9850"
-          },
-          {
-            "value": 2,
-            "label": "2 · Baja",
-            "color": "#91CF60"
-          },
-          {
-            "value": 3,
-            "label": "3 · Moderada",
-            "color": "#FEE08B"
-          },
-          {
-            "value": 4,
-            "label": "4 · Alta",
-            "color": "#FC8D59"
-          },
-          {
-            "value": 5,
-            "label": "5 · Muy alta",
-            "color": "#D73027"
-          }
-        ]
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-inundaciones",
-      "title": "Amenaza por inundación",
-      "group": "Riesgos",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/inundaciones.geojson",
-      "expected_file_hint": "geovisor/capas/inundaciones.geojson",
-      "resolution": "polygon; 2 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#2563eb",
-        "fill_opacity": 0.22,
-        "stroke_color": "#2563eb",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-proteccion-rios",
-      "title": "Zonas de protección de ríos",
-      "group": "Protección ambiental",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/proteccion_rios.geojson",
-      "expected_file_hint": "geovisor/capas/proteccion_rios.geojson",
-      "resolution": "polygon; 17 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#16a34a",
-        "fill_opacity": 0.22,
-        "stroke_color": "#16a34a",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-pendientes",
-      "title": "Pendientes del terreno",
-      "group": "Base física",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/pendientes.geojson",
-      "expected_file_hint": "geovisor/capas/pendientes.geojson",
-      "resolution": "4 rangos de pendiente disueltos y optimizados para web (EPSG:4326)",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#f59e0b",
-        "fill_opacity": 0.55,
-        "stroke_color": "#f59e0b",
-        "stroke_width": 1.2,
-        "visible_by_default": false,
-        "fill_color_attribute": "rango_pendiente",
-        "fill_color_categories": [
-          {
-            "value": "Baja (0–12)",
-            "label": "Pendiente baja (0–12)",
-            "color": "#22C55E"
-          },
-          {
-            "value": "Moderada (12–25)",
-            "label": "Pendiente moderada (12–25)",
-            "color": "#EAB308"
-          },
-          {
-            "value": "Fuerte (25–40)",
-            "label": "Pendiente fuerte (25–40)",
-            "color": "#F97316"
-          },
-          {
-            "value": "Escarpada (>40)",
-            "label": "Ladera escarpada (>40)",
-            "color": "#DC2626"
-          }
-        ]
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-cuerpos-agua",
-      "title": "Cuerpos de agua",
-      "group": "Hidrología",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/cuerpos_agua.geojson",
-      "expected_file_hint": "geovisor/capas/cuerpos_agua.geojson",
-      "resolution": "polygon; 43 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#0284c7",
-        "fill_opacity": 0.22,
-        "stroke_color": "#0284c7",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-curvas-nivel-1m",
-      "title": "Curvas de nivel cada 1 m",
-      "group": "Base física",
-      "format": "geojson",
-      "geometry_type": "line",
-      "status": "publicado",
-      "source_path": "geovisor/capas/curvas_nivel_1m.geojson",
-      "expected_file_hint": "geovisor/capas/curvas_nivel_1m.geojson",
-      "resolution": "line; 219 entidades; EPSG:5367 -> EPSG:4326; simplificación visual 0.5 m",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#64748b",
-        "fill_opacity": 0.22,
-        "stroke_color": "#64748b",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-sectores-estimacion-ajustada-shp",
-      "title": "Estimación poblacional ajustada por sector",
-      "group": "Estimación de población",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/sectores_estimacion_ajustada_shp.geojson",
-      "expected_file_hint": "geovisor/capas/sectores_estimacion_ajustada_shp.geojson",
-      "resolution": "polygon; 9 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#ea580c",
-        "fill_opacity": 0.22,
-        "stroke_color": "#ea580c",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "Incluye atributos prediales y de personas; El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-sectores-estimacion-shp",
-      "title": "Estimación poblacional por sector (Shapefile)",
-      "group": "Estimación de población",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/sectores_estimacion_shp.geojson",
-      "expected_file_hint": "geovisor/capas/sectores_estimacion_shp.geojson",
-      "resolution": "polygon; 9 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#c2410c",
-        "fill_opacity": 0.22,
-        "stroke_color": "#c2410c",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "Incluye atributos prediales y de personas; El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-open-buildings-local",
-      "title": "Huellas de edificios Open Buildings (Open Buildings)",
-      "group": "Edificaciones",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/open_buildings.geojson",
-      "expected_file_hint": "geovisor/capas/open_buildings.geojson",
-      "resolution": "polygon; 4,127 entidades; EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#78716c",
-        "fill_opacity": 0.22,
-        "stroke_color": "#78716c",
-        "stroke_width": 1.1,
-        "visible_by_default": false
-      },
-      "caveat": "Huellas detectadas por satélite; pueden incluir estructuras no residenciales. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-incidentes-cme",
-      "title": "Incidentes CME 2019–2026",
-      "group": "Riesgos",
-      "format": "geojson",
-      "geometry_type": "point",
-      "status": "publicado",
-      "source_path": "geovisor/capas/incidentes_cme_2019_2026.geojson",
-      "expected_file_hint": "geovisor/capas/incidentes_cme_2019_2026.geojson",
-      "resolution": "point; 44 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#7e22ce",
-        "fill_opacity": 0.22,
-        "stroke_color": "#7e22ce",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "Se excluyeron únicamente los atributos DIRECCION, POBL_MENOR, POBL_ADULT y ADULTO_MAY. Se conservaron los demás atributos y la geometría puntual original. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-predios-catastrales",
-      "title": "Predios catastrales",
-      "group": "Catastro",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/predios_catastrales.geojson",
-      "expected_file_hint": "geovisor/capas/predios_catastrales.geojson",
-      "resolution": "polygon; 5,421 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#64748b",
-        "fill_opacity": 0.22,
-        "stroke_color": "#64748b",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "Contiene identificadores de finca, planos y localización predial. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-sectores-carpio",
-      "title": "Sectores de La Carpio",
-      "group": "Delimitación de sectores",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/sectores_carpio.geojson",
-      "expected_file_hint": "geovisor/capas/sectores_carpio.geojson",
-      "resolution": "polygon; 9 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#7c3aed",
-        "fill_opacity": 0.22,
-        "stroke_color": "#7c3aed",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "La tabla incluye direcciones, propietarios e identificadores de propiedad. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-techos-encuesta",
-      "title": "Techos del levantamiento local",
-      "group": "Edificaciones",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/techos_encuesta.geojson",
-      "expected_file_hint": "geovisor/capas/techos_encuesta.geojson",
-      "resolution": "polygon; 4,178 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#a16207",
-        "fill_opacity": 0.22,
-        "stroke_color": "#a16207",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "Geometría detallada y claves del levantamiento. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-terrenos-estado",
-      "title": "Terrenos del Estado",
-      "group": "Terrenos del Estado",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/terrenos_estado.geojson",
-      "expected_file_hint": "geovisor/capas/terrenos_estado.geojson",
-      "resolution": "polygon; 5 entidades; EPSG:8908 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#15803d",
-        "fill_opacity": 0.22,
-        "stroke_color": "#15803d",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "Incluye identificadores registrales y valores de propiedades. El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-usos-suelo",
-      "title": "Usos de suelo",
-      "group": "Usos del suelo",
-      "format": "geojson",
-      "geometry_type": "polygon",
-      "status": "publicado",
-      "source_path": "geovisor/capas/usos_suelo.geojson",
-      "expected_file_hint": "geovisor/capas/usos_suelo.geojson",
-      "resolution": "polygon; 7,422 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#0f766e",
-        "fill_opacity": 0.22,
-        "stroke_color": "#0f766e",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
-    },
-    {
-      "id": "local-vialidad",
-      "title": "Vialidad del área de estudio",
-      "group": "Red vial",
-      "format": "geojson",
-      "geometry_type": "line",
-      "status": "publicado",
-      "source_path": "geovisor/capas/vialidad.geojson",
-      "expected_file_hint": "geovisor/capas/vialidad.geojson",
-      "resolution": "line; 153 entidades; EPSG:5367 -> EPSG:4326",
-      "default_visible": false,
-      "style": {
-        "fill_color": "#334155",
-        "fill_opacity": 0.22,
-        "stroke_color": "#334155",
-        "stroke_width": 1.2,
-        "visible_by_default": false
-      },
-      "caveat": "El equipo solicitante declara que la información fue revisada y es pública; procesada para el geovisor en EPSG:4326."
+      "caveat": "Las áreas de protección de ríos se incorporan al índice como riesgo Muy alto, conforme al criterio del equipo y la Ley Forestal 7575; deslizamientos CATEGORIA_ 4 y 5. La capa representa la cartografía fuente y no constituye deslinde jurídico."
     }
   ]
 }

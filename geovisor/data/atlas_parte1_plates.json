@@ -2,11 +2,11 @@
   {
     "key": "proj-p1",
     "number": "LÁMINA P1",
-    "shortTitle": "P1 · Índice Multiamenaza",
-    "title": "Índice Compuesto Exploratorio de Multiamenaza (0–100) e Incidentes CME (2019–2026)",
-    "sensor": "Susceptibilidad a deslizamientos + Inundación potencial + Reportes CME 2019–2026",
-    "formula": "Indice_Multiamenaza = 100 * ( 0.5 * Score_Deslizamiento + 0.5 * Fraccion_Inundacion )",
-    "reading": "Concentra los valores Altos y Moderados (127 hexágonos con 13,879 hab) a lo largo de los escarpes norte (río Virilla) y sur (río Torres), coincidiendo con los puntos históricos de emergencia CME.",
+    "shortTitle": "P1 · Multiamenaza 20 m",
+    "title": "Índice Local de Multiamenaza por Hexágono de 20 m (2,470 Celdas) e Incidentes CME",
+    "sensor": "Deslizamientos Cat. 4–5 + Inundación potencial + Protección de ríos (Ley 7575) + CME 2019–2026",
+    "formula": "Indice_20m = 100 (si Proteccion_Rio) sino 100 * (0.5 * Score_Desliz_4_5 + 0.5 * Frac_Inund)",
+    "reading": "Identifica 588 hexágonos en categoría Muy Alta (4,687 hab · 15.49%), 80 en Moderada (998 hab) y 203 en Baja (2,879 hab) sobre los bordes de los ríos Virilla y Torres, frente a 1,579 hexágonos Muy Bajos (21,681 hab) en la meseta central.",
     "imageRel": "assets/img/atlas_proyecto/lamina_p1.png",
     "coords": [
       [
@@ -28,24 +28,24 @@
     ],
     "swatches": [
       {
-        "color": "#FC8D59",
-        "label": "Multiamenaza Alta (8 hex)",
-        "desc": "318 hab en bordes críticos de cañón"
+        "color": "#D73027",
+        "label": "Muy Alto · incl. protección río (588 hex)",
+        "desc": "4,687 hab (15.49%) · Prioridad máxima"
       },
       {
         "color": "#FEE08B",
-        "label": "Multiamenaza Moderada (119 hex)",
-        "desc": "13,561 hab · Prioridad de drenaje y taludes"
+        "label": "Moderado (80 hex)",
+        "desc": "998 hab (3.30%) · Mitigación pluvial/talud"
       },
       {
         "color": "#91CF60",
-        "label": "Multiamenaza Baja (142 hex)",
-        "desc": "14,987 hab · Plataforma central"
+        "label": "Bajo (203 hex)",
+        "desc": "2,879 hab (9.52%) · Transición de borde"
       },
       {
         "color": "#1A9850",
-        "label": "Multiamenaza Muy Baja (23 hex)",
-        "desc": "Núcleo interior estable"
+        "label": "Muy Bajo (1,579 hex)",
+        "desc": "21,681 hab (71.67%) · Plataforma central"
       },
       {
         "color": "#38BDF8",
@@ -57,11 +57,11 @@
   {
     "key": "proj-p2",
     "number": "LÁMINA P2",
-    "shortTitle": "P2 · Restricciones (281 hex)",
-    "title": "Evaluación de Restricciones y Condicionantes al Desarrollo Urbanístico",
-    "sensor": "Zonas de protección de ríos + Susceptibilidad alta/moderada a deslizamientos",
-    "formula": "Restringido = Retiro_Fluvial OR Deslizamiento_Alto_MuyAlto ; Condicionado = Desliz_Moderado",
-    "reading": "Separa explícitamente la condición normativa/física de restricción respecto del puntaje promedio, evitando que una baja inundación diluya la alerta por retiro fluvial o talud inestable.",
+    "shortTitle": "P2 · Restricciones (1,523 hex)",
+    "title": "Protección de Ríos (Ley Forestal 7575) y Amenaza por Deslizamiento Alto/Muy Alto en 20 m",
+    "sensor": "proteccion_rios.geojson + deslizamientos CATEGORIA_ 4 y 5 sobre malla de 20 m",
+    "formula": "Verde: Conservacion_Natural (21) | Rojo: Deslizamiento_4_5 (935) | Morado: Solape_Ambos (567)",
+    "reading": "Distingue espacialmente los 935 hexágonos con amenaza por deslizamiento (12,779 hab), los 567 hexágonos con doble condición de retiro fluvial y deslizamiento (4,475 hab) y los 21 hexágonos de conservación fluvial directa (212 hab).",
     "imageRel": "assets/img/atlas_proyecto/lamina_p2.png",
     "coords": [
       [
@@ -84,29 +84,34 @@
     "swatches": [
       {
         "color": "#DC2626",
-        "label": "Restringido (266 hex · 87.5%)",
-        "desc": "Intersección con retiro de río o deslizamiento alto"
+        "label": "Amenaza por Deslizamiento (935 hex)",
+        "desc": "12,779 hab (42.24%) · Categorías 4 y 5"
       },
       {
-        "color": "#F59E0B",
-        "label": "Condicionado (15 hex · 4.9%)",
-        "desc": "Deslizamiento moderado sujeto a obras técnicas"
+        "color": "#7E22CE",
+        "label": "Conservación + Deslizamiento (567 hex)",
+        "desc": "4,475 hab (14.79%) · Solape crítico en cañón"
       },
       {
-        "color": "#0284C7",
-        "label": "Zona de Protección Fluvial",
-        "desc": "Cañones de los ríos Virilla y Torres"
+        "color": "#16A34A",
+        "label": "Conservación Natural / Río (21 hex)",
+        "desc": "212 hab (0.70%) · Retiro fluvial Ley 7575"
+      },
+      {
+        "color": "#1E293B",
+        "label": "Sin Intersección Identificada (947 hex)",
+        "desc": "12,786 hab (42.26%) · Meseta interior"
       }
     ]
   },
   {
     "key": "proj-p3",
     "number": "LÁMINA P3",
-    "shortTitle": "P3 · Población Hexagonal",
-    "title": "Distribución Microterritorial de Población (30,252 Habitantes · Escenario 5.4 hab/viv)",
-    "sensor": "Open Buildings v3 + Levantamiento de techos + Escenarios sectoriales MSJ/MIVAH",
-    "formula": "Pob_h = Mayores_Restos( Pob_Sector * Viviendas_Piecewise_h / sum(Viviendas_Sector) )",
-    "reading": "Identifica los hexágonos de mayor concentración habitacional (>200 hab/celda) para dimensionar redes de agua, espacio público, equipamiento y rutas de evacuación.",
+    "shortTitle": "P3 · Población 20 m",
+    "title": "Distribución Microterritorial de Población en 2,470 Hexágonos de 20 m (30,252 Habitantes)",
+    "sensor": "Google Open Buildings v3 + Techos locales + Sectores MSJ/MIVAH + Contexto INEC Uruca",
+    "formula": "Pob_20m_h = Mayores_Restos( Pob_Sector * Viviendas_Est_h / sum(Viviendas_Sector) ) ; Total = 30,252",
+    "reading": "Muestra a escala de 20 m los núcleos de mayor concentración habitacional en María Auxiliadora (6,157 hab), Central (4,565 hab), Roble Norte (3,747 hab) y Pequeña Gran Ciudad (3,726 hab).",
     "imageRel": "assets/img/atlas_proyecto/lamina_p3.png",
     "coords": [
       [
@@ -129,23 +134,23 @@
     "swatches": [
       {
         "color": "#9A3412",
-        "label": "> 200 hab / hexágono",
-        "desc": "Núcleos de máxima compacidad habitacional"
+        "label": "18 – 23 hab / hexágono 20 m",
+        "desc": "Máxima compacidad residencial"
       },
       {
         "color": "#EA580C",
-        "label": "130 – 200 hab / hexágono",
-        "desc": "Densidad residencial consolidada alta"
+        "label": "13 – 17 hab / hexágono 20 m",
+        "desc": "Densidad consolidada alta"
       },
       {
-        "color": "#FDBA74",
-        "label": "60 – 130 hab / hexágono",
-        "desc": "Densidad media barrial"
+        "color": "#FB923C",
+        "label": "7 – 12 hab / hexágono 20 m",
+        "desc": "Densidad barrial media"
       },
       {
-        "color": "#FEF08A",
-        "label": "≤ 60 hab / hexágono",
-        "desc": "Bordes, accesos y áreas de equipamiento"
+        "color": "#FED7AA",
+        "label": "0 – 6 hab / hexágono 20 m",
+        "desc": "Bordes, accesos y equipamientos"
       }
     ]
   },
@@ -153,10 +158,10 @@
     "key": "proj-p4",
     "number": "LÁMINA P4",
     "shortTitle": "P4 · Deslizamientos y Ríos",
-    "title": "Susceptibilidad a Deslizamientos Disuelta y Corredores Fluviales Virilla–Torres",
-    "sensor": "Mapa local de susceptibilidad a deslizamientos + Retiros fluviales en EPSG:4326",
-    "formula": "Clases CATEGORIA_ 1 (Muy baja) a 5 (Muy alta) recortadas y disueltas",
-    "reading": "Ilustra el confinamiento topográfico de La Carpio sobre una meseta estrecha flanqueada por cañones fluviales profundos con alta susceptibilidad geotécnica.",
+    "title": "Susceptibilidad Geotécnica a Deslizamientos (5 Clases) y Corredores Fluviales Virilla–Torres",
+    "sensor": "Cartografía municipal de susceptibilidad a deslizamientos + Áreas de protección fluvial",
+    "formula": "CATEGORIA_ 4 (0.75) y 5 (1.00) activan el índice; CATEGORIA_ 1–3 documentan contexto",
+    "reading": "Evidencia la geomorfología del interfluvio entre los cañones profundos del río Virilla al norte y del río Torres al sur, donde se concentran las pendientes mayores a 30°.",
     "imageRel": "assets/img/atlas_proyecto/lamina_p4.png",
     "coords": [
       [
@@ -180,22 +185,22 @@
       {
         "color": "#D73027",
         "label": "5 · Susceptibilidad Muy Alta",
-        "desc": "Taludes escarpados de los cañones fluviales"
+        "desc": "Escarpes pronunciados de cañón fluvial"
       },
       {
         "color": "#FC8D59",
         "label": "4 · Susceptibilidad Alta",
-        "desc": "Bordes de corona de ladera"
+        "desc": "Coronas de talud (entra al índice con 0.75)"
       },
       {
         "color": "#FEE08B",
         "label": "3 · Susceptibilidad Moderada",
-        "desc": "Transición hacia la plataforma"
+        "desc": "Transición geomorfológica"
       },
       {
         "color": "#91CF60",
         "label": "1–2 · Susceptibilidad Baja / Muy Baja",
-        "desc": "Meseta central consolidada"
+        "desc": "Plataforma central estable"
       }
     ]
   }

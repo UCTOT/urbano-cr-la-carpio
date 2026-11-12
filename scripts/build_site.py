@@ -7,6 +7,7 @@ Clúster Copernicus Urbano 2.0.0-copernicus-2026 para urbano-cr-la-carpio.
 from __future__ import annotations
 
 import argparse
+import csv
 import datetime as dt
 import html
 import json
@@ -38,141 +39,148 @@ ROOT = Path(__file__).resolve().parent.parent
 SPEC: dict[str, Any] = json.loads(r"""{
   "subpage_slug": "indice-multiamenaza",
   "subpage_nav": "Índice Multiamenaza",
-  "subpage_title": "Estimación Poblacional Hexagonal e Índice Exploratorio de Multiamenaza en La Carpio (San José)",
-  "subpage_badge": "Micro-Escala 304 Hexágonos (30 m) · MSJ · MIVAH · INVU · CME",
+  "subpage_title": "Malla Hexagonal de 20 m (2,470 Celdas), Índice de Multiamenaza y Tablero de Exposición en La Carpio",
+  "subpage_badge": "Malla Aprobada 2,470 Hexágonos (20 m) · MSJ · MIVAH · INVU · INEC · CME",
   "docx_file": "Metodologia_cr-la-carpio.docx",
   "script_file": "build_local_multihazard_index.py",
   "csv_file": "indicadores_multiamenaza_la_carpio.csv",
   "atlas_pages": 27,
-  "area_str": "~61.0 ha operativas entre los ríos Virilla y Torres (La Uruca, San José, Costa Rica)",
-  "res_str": "Malla hexagonal regular de 30 m (~779 m² · 304 hexágonos en CRTM05 / WGS84)",
-  "copernicus_local_synergy": "Desarrollado en el contexto del Clúster Copernicus Urbano, este atlas articula la observación satelital Copernicus (impermeabilización y estrés térmico en Sentinel-2 L2A, radar Sentinel-1 SAR y geomorfología regional DEM GLO-30 de los cañones de los ríos Virilla y Torres) con 19 capas locales de micro-escala depuradas por la mesa interinstitucional MSJ–MIVAH–INVU (304 hexágonos de 30 m, 4,178 techos locales, susceptibilidad a deslizamientos, inundación potencial, retiros fluviales y 44 incidentes de emergencia CME 2019–2026), apoyando el Plan Maestro de Intervención Urbanística Integral en La Carpio.",
+  "area_str": "~61.0 ha operativas entre los ríos Virilla y Torres (Distrito Uruca 10107, San José, Costa Rica)",
+  "res_str": "Malla hexagonal regular de 20 m entre vértices opuestos (2,470 hexágonos en CRTM05 / WGS84)",
+  "copernicus_local_synergy": "Desarrollado y validado técnicamente en el contexto del Clúster Copernicus Urbano, este atlas articula la observación satelital Copernicus (impermeabilización y estrés térmico en Sentinel-2 L2A, radar Sentinel-1 SAR y geomorfología regional DEM GLO-30 de los cañones de los ríos Virilla y Torres) con la malla microterritorial aprobada de 2,470 hexágonos de 20 m depurada por el equipo MSJ–MIVAH–INVU (30,252 habitantes calibrados con Google Open Buildings v3 ratio 0.988, protección fluvial Ley 7575 como condición Muy Alta con 4,687 hab, deslizamientos CATEGORIA_ 4–5, 44 incidentes CME 2019–2026, línea base censal INEC Uruca y cuaderno Colab v1.1), respaldando el Plan Maestro de Intervención Urbanística Integral.",
   "kpis": [
     [
       "30,252 hab.",
-      "Población Modelada",
-      "Desagregación espacial bajo el escenario consensuado (5.4 hab/viv) sobre 304 hexágonos."
+      "Población Distribuida",
+      "Asignación entera exacta en los 9 sectores comunales sobre 2,470 hexágonos de 20 m."
     ],
     [
-      "304 hexágonos",
-      "Malla Microurbana 30 m",
-      "Unidad homogénea (~779 m²) que preserva confidencialidad y captura gradientes de borde."
+      "2,470 hexágonos",
+      "Malla Aprobada 20 m",
+      "Hexágonos de 20 m entre vértices opuestos en CRTM05 (ratio Open Buildings/local = 0.988)."
     ],
     [
-      "266 hexágonos",
-      "Condición Restringida",
-      "87.5% de la malla presenta afectación parcial por retiro fluvial o ladera pronunciada."
+      "4,687 hab.",
+      "Riesgo Muy Alto (15.5%)",
+      "588 hexágonos de 20 m (incorpora protección fluvial Ley 7575 con índice = 100)."
     ],
     [
-      "4,178 techos",
-      "Validación Edilicia",
-      "98.8% de concordancia frente a las 4,127 huellas satelitales de Open Buildings."
+      "1,523 hexágonos",
+      "Restricción Urbana",
+      "935 por deslizamiento 4–5, 567 por solape río+ladera y 21 por conservación fluvial."
     ],
     [
-      "44 eventos",
-      "Historial CME 2019–26",
-      "Reportes georreferenciados de emergencia que validan los bordes críticos del modelo."
+      "43,484 hab.",
+      "Línea Base INEC Uruca",
+      "Distrito 10107 (+37.1% intercensal 2011–2022; 3.8 a ~3.4 personas/vivienda)."
     ],
     [
-      "19 capas",
-      "Geovisor Optimizado",
-      "Catálogo completo publicado en WGS84 y libre de datos personales sensibles (0 PII)."
+      "7 capas + Tablero",
+      "Geovisor Depurado",
+      "Capas clave solicitadas, tablero estadístico bajo el mapa y cuaderno Colab v1.1."
     ]
   ],
   "phases": [
     [
-      "Fase 1 · Calibración Edilicia y Desagregación Demográfica",
-      "Contraste entre 4,178 techos locales y 4,127 huellas Open Buildings para distribuir con precisión 30,252 habitantes (escenario 5.4 hab/viv) en los 9 sectores y 304 hexágonos."
+      "Fase 1 · Malla de 20 m, Open Buildings v3 y Contexto INEC",
+      "Construcción de 2,470 hexágonos de 20 m en CRTM05, calibración piecewise con Google Open Buildings v3 (4.5 hab/viv base; ratio 0.988), distribución entera de 30,252 hab en 9 sectores y contraste censal INEC Uruca (2011–2022)."
     ],
     [
-      "Fase 2 · Estandarización de Amenazas en CRTM05 (EPSG:5367)",
-      "Superposición métrica exacta de susceptibilidad a deslizamientos (5 niveles), mancha de inundación potencial, curvas cada 1 m y retiros legales de los ríos Virilla y Torres."
+      "Fase 2 · Deslizamientos CATEGORIA_ 4–5, Inundación y Protección Fluvial",
+      "Cruce métrico exacto con susceptibilidad a deslizamientos Alta/Muy Alta (pesos 0.75 y 1.0), inundación potencial y áreas de protección de ríos (Ley Forestal 7575), asignando condición Muy Alta (puntaje 100) a los retiros fluviales."
     ],
     [
-      "Fase 3 · Construcción del Índice Exploratorio Multiamenaza (0–100)",
-      "Combinación ponderada areal (50% deslizamiento + 50% inundación) y contraste empírico frente a los 44 incidentes históricos del CME (2019–2026)."
+      "Fase 3 · Tablero Estadístico de Exposición Poblacional",
+      "Generación reproducible (build_risk_statistics.py) de tablas CSV por categoría de riesgo, combinación excluyente de amenazas y distribución sin duplicidad en los 9 sectores comunales."
     ],
     [
-      "Fase 4 · Separación de Condición de Restricción Normativa",
-      "Clasificación explícita de hexágonos Restringidos (266) y Condicionados (15) para evitar que promedios bajos oculten restricciones legales o de talud."
+      "Fase 4 · Publicación Web Depurada y Cuaderno Colab v1.1",
+      "Publicación de las 7 capas solicitadas y del tablero estadístico en el Geovisor, complementados con el cuaderno interactivo score_multiamenaza_edificaciones.ipynb (v1.1) para auditoría a nivel de techos."
     ]
   ],
   "formulas": [
-    "Desliz_Score_h = sum_{k=1..5} ( Area_Interseccion(h, Cat_k) / Area(h) ) * ((k - 1) / 4)",
-    "Indice_Multiamenaza_h = 100 * ( 0.50 * Desliz_Score_h + 0.50 * Fraccion_Inundacion_h )",
-    "Pob_Hexagono_h = Redondeo_Mayores_Restos( Pob_Sector_s * (Viviendas_Est_h / sum_{j in s} Viviendas_Est_j) )"
+    "Desliz_Score_h = ( 0.75 * Area_Interseccion(h, Cat_4) + 1.00 * Area_Interseccion(h, Cat_5) ) / Area(h)",
+    "Indice_Multiamenaza_20m_h = 100  si (h intersecta Proteccion_Rios)  sino  100 * ( 0.50 * Desliz_Score_h + 0.50 * Fraccion_Inundacion_h )",
+    "Pob_Hex_20m_h = Redondeo_Mayores_Restos( Pob_Sector_s * (Viviendas_OpenBuildings_h / sum_{j in s} Viviendas_OpenBuildings_j) )"
   ],
-  "table_title": "Síntesis Microterritorial del Índice Multiamenaza y Restricciones sobre los 304 Hexágonos de La Carpio",
+  "table_title": "Síntesis Aprobada del Índice de Multiamenaza y Combinación de Amenazas en los 2,470 Hexágonos de 20 m (La Carpio)",
   "table_headers": [
-    "Dimensión / Categoría",
-    "Criterio Técnico Evaluado (CRTM05)",
-    "Hexágonos 30 m (n / %)",
-    "Población Estimada (Esc. 5.4)",
+    "Categoría / Combinación",
+    "Criterio Técnico Evaluado (CRTM05 / Ley 7575)",
+    "Hexágonos 20 m (n / %)",
+    "Población Estimada (hab / %)",
     "Lineamiento para el Plan Maestro"
   ],
   "table_rows": [
     [
-      "Restricción Física / Legal",
-      "Intersección con retiro fluvial Virilla/Torres o ladera muy alta",
-      "266 hex (87.5%)",
-      "26,890 hab (ámbito con borde)",
-      "Obras de protección de talud, control constructivo y reubicación puntual"
+      "Multiamenaza Muy Alta",
+      "Protección de ríos (puntaje 100) o combinación máxima",
+      "588 hex (23.8%)",
+      "4,687 hab (15.49%)",
+      "Prioridad máxima de salvaguarda ambiental, evaluación técnica y mitigación"
     ],
     [
-      "Condicionado Geotécnico",
-      "Susceptibilidad moderada fuera de retiro fluvial directo",
-      "15 hex (4.9%)",
-      "1,412 hab",
-      "Mejoramiento barrial sujeto a diseño pluvial y geotécnico"
+      "Multiamenaza Moderada",
+      "Aporte intermedio de deslizamiento Cat. 4–5 o inundación",
+      "80 hex (3.2%)",
+      "998 hab (3.30%)",
+      "Estabilización de coronas de talud, drenaje pluvial y monitoreo CME"
     ],
     [
-      "Multiamenaza Moderada–Alta",
-      "Puntaje compuesto elevado en coronas de escarpe y vaguadas",
-      "47–127 hex (focal)",
-      "2,714 – 13,879 hab",
-      "Priorización inmediata de drenajes, muros y alerta temprana CME"
+      "Multiamenaza Baja",
+      "Afectación parcial periférica fuera de retiro fluvial",
+      "203 hex (8.2%)",
+      "2,879 hab (9.52%)",
+      "Control constructivo preventivo y manejo de escorrentía"
     ],
     [
-      "Plataforma Central Consolidada",
-      "Meseta superior con menor susceptibilidad relativa",
-      "172 hex (56.6%)",
-      "19,845 hab",
-      "Consolidación de espacio público, red hídrica y equipamiento"
+      "Multiamenaza Muy Baja",
+      "Plataforma central consolidada sin intersección crítica",
+      "1,579 hex (63.9%)",
+      "21,681 hab (71.67%)",
+      "Consolidación de equipamiento social, red hídrica y espacio público"
     ],
     [
-      "Total Malla La Carpio",
-      "9 sectores comunales entre ríos Virilla y Torres",
-      "304 hex (100.0%)",
-      "30,252 hab (5,609 viv. est.)",
-      "Base interinstitucional MSJ · MIVAH · INVU · CNE"
+      "Restricción Total (Río / Ladera 4–5)",
+      "935 desliz. (12,779 hab) + 567 solape (4,475 hab) + 21 río (212 hab)",
+      "1,523 hex (61.7%)",
+      "17,466 hab (57.74%)",
+      "Señal territorial para mesas técnicas MSJ · MIVAH · INVU (no reubicación individual)"
+    ],
+    [
+      "Total Malla 20 m La Carpio",
+      "9 sectores comunales (incluye 20 hex de borde con 7 hab sin dato)",
+      "2,470 hex (100.0%)",
+      "30,252 hab (5,460 viv. est.)",
+      "Revisión técnica validada en el Clúster Copernicus Urbano"
     ]
   ],
   "fig_captions": [
     [
       "Figura 1 · Arquitectura Metodológica",
-      "Flujo Microterritorial en CRTM05: Demografía Hexagonal, Multiamenaza y Restricciones",
-      "Integración transparente de catastro de techos, amenazas hidro-geotécnicas y validación con emergencias municipales."
+      "Flujo Microterritorial Aprobado en CRTM05: Malla 20 m, INEC, Multiamenaza y Colab v1.1",
+      "Integración de Open Buildings v3 calibrado, protección fluvial Ley 7575, deslizamientos Cat. 4–5 y tablero estadístico."
     ],
     [
-      "Figura 2 · Indicadores Hexagonales",
-      "Distribución de Restricciones, Niveles de Multiamenaza e Incidentes CME (2019–2026)",
-      "Contraste entre la extensión de condicionantes perimetrales y la concentración de incidentes en los bordes de cañón."
+      "Figura 2 · Población por Categoría",
+      "Exposición Demográfica en las 5 Clases del Índice sobre 2,470 Hexágonos de 20 m",
+      "Visibiliza los 4,687 habitantes (15.5%) en condición Muy Alta frente a los 21,681 habitantes (71.7%) en la meseta Muy Baja."
     ],
     [
-      "Figura 3 · Mapa Síntesis Barrial",
-      "Microzonificación del Índice Multiamenaza y Reportes CME en los 9 Sectores de La Carpio",
-      "Localización exacta de los escarpes críticos hacia el río Virilla (norte) y el río Torres (sur)."
+      "Figura 3 · Mapa Síntesis 20 m",
+      "Microzonificación en 2,470 Hexágonos de 20 m e Incidentes CME (2019–2026)",
+      "Delimitación fina de los bordes críticos sobre el río Virilla (norte) y el río Torres (sur)."
     ],
     [
-      "Figura 4 · Escenarios Demográficos",
-      "Sensibilidad Poblacional (4.5, 5.4 y 6.0 hab/viv) y Concordancia Open Buildings",
-      "Respaldo cuantitativo para dimensionar inversiones de infraestructura social y reducción de riesgo."
+      "Figura 4 · Distribución Sectorial e INEC",
+      "Población Asignada en los 9 Sectores Comunales y Línea Base Distrital Uruca (10107)",
+      "Base cuantitativa sin doble conteo encabezada por María Auxiliadora (6,157 hab) y Central (4,565 hab)."
     ]
   ],
   "roadmap": [
-    "Acoplar modelación hidráulica 2D de crecidas extremas en los cañones de los ríos Virilla y Torres y análisis geotécnico de detalle por sector.",
-    "Incorporar temperatura superficial e islas de calor intraurbanas (Landsat/Sentinel-2) para priorizar arborización y techos frescos en la meseta central densa.",
-    "Conectar el registro continuo de incidentes del Comité Municipal de Emergencias (CME) para recalibración anual automática de pesos."
+    "Homologar formalmente mediante acta interinstitucional (MSJ–INVU–MIVAH) el polígono operativo (~61.0 ha geométricas vs. 48.2 ha del formulario preliminar).",
+    "Gestionar con el INEC microdatos censales desagregados específicamente para el perímetro interno de La Carpio sobre la línea base distrital de Uruca (10107).",
+    "Integrar modelación hidráulica 2D de crecidas en los cañones Virilla–Torres e islas de calor superficiales para priorizar infraestructura verde en la meseta central."
   ]
 }""")
 
@@ -551,6 +559,11 @@ def build_geolibre_project_json(
                 except Exception:
                     embedded_geojson = None
 
+        is_vis = (
+            bool(lyr["default_visible"])
+            if "default_visible" in lyr
+            else not (isinstance(lyr.get("style"), dict) and lyr["style"].get("visible_by_default") is False)
+        )
         layer_entry: dict[str, Any] = {
             "id": lid,
             "name": lyr["title"],
@@ -560,7 +573,7 @@ def build_geolibre_project_json(
                 "url": resolved,
                 "data": resolved if layer_type == "geojson" else None,
             },
-            "visible": True,
+            "visible": is_vis,
             "opacity": 1,
             "style": full_style,
             "metadata": {
@@ -1058,7 +1071,11 @@ def build_aplicacion_page(
         for lyr in items:
             lid = lyr["id"]
             is_ready = bool(lyr.get("source_path")) and lyr.get("status") in ("publicado", "en_revision")
-            vis_default = not (isinstance(lyr.get("style"), dict) and lyr["style"].get("visible_by_default") is False)
+            vis_default = (
+                bool(lyr["default_visible"])
+                if "default_visible" in lyr
+                else not (isinstance(lyr.get("style"), dict) and lyr["style"].get("visible_by_default") is False)
+            )
             disabled_attr = "" if is_ready else " disabled"
             checked_attr = " checked" if (is_ready and vis_default) else ""
             caveat_html = f'<div class="layer-item-caveat">{esc(lyr.get("caveat"))}</div>' if lyr.get("caveat") else ""
@@ -1142,6 +1159,92 @@ def build_aplicacion_page(
         else "https://web.geolibre.app/"
     )
     colaborar_logos_href = ctx.site_url("colaborar/") + "#anadir-actualizar-logos"
+
+    # Tablero estadístico de exposición poblacional integrado desde geovisor/estadisticas/ (aprobado cr-la-carpio)
+    stats_dir = ROOT / "geovisor" / "estadisticas"
+
+    def read_stats(name: str) -> list[dict[str, str]]:
+        sp_csv = stats_dir / name
+        if not sp_csv.exists():
+            return []
+        with sp_csv.open(encoding="utf-8-sig", newline="") as stream:
+            return list(csv.DictReader(stream))
+
+    category_rows = read_stats("poblacion_por_categoria_riesgo.csv")
+    sector_rows = read_stats("poblacion_por_sector.csv")
+    combo_rows = read_stats("poblacion_por_combinacion_amenazas.csv")
+    indicator_rows = read_stats("indicadores_principales.csv")
+    fmt_num = lambda value: f"{int(float(value or 0)):,}".replace(",", ".")
+    category_colors = {
+        "Muy alto": "#b91c1c",
+        "Alto": "#f97316",
+        "Moderado": "#eab308",
+        "Bajo": "#84cc16",
+        "Muy bajo": "#16a34a",
+        "Sin dato": "#94a3b8",
+    }
+    max_pop = max((int(float(r.get("poblacion", 0) or 0)) for r in category_rows), default=1) or 1
+    category_html = "".join(
+        f'<div class="risk-bar-row">'
+        f'<span>{esc(r["categoria"])}</span>'
+        f'<div class="risk-bar-track"><div class="risk-bar-fill" style="width:{100 * int(r["poblacion"]) / max_pop:.1f}%;background:{category_colors.get(r["categoria"], "#64748b")}"></div></div>'
+        f'<strong>{fmt_num(r["poblacion"])}</strong>'
+        f'<small>{float(r["porcentaje_poblacion"]):.1f}%</small>'
+        f"</div>"
+        for r in category_rows
+    )
+    sector_html = "".join(
+        f'<tr><td>{esc(r["sector"] or "Sin sector")}</td><td>{fmt_num(r["poblacion"])}</td><td>{float(r["porcentaje_total"]):.1f}%</td><td>{fmt_num(r["hexagonos"])}</td></tr>'
+        for r in sector_rows
+    )
+    combo_html = "".join(
+        f'<tr><td>{esc(r["combinacion_amenazas"])}</td><td>{fmt_num(r["poblacion"])}</td><td>{float(r["porcentaje_total"]):.1f}%</td></tr>'
+        for r in combo_rows
+    )
+    indicator_by_id = {r["id"]: r for r in indicator_rows}
+    indicator_cards = "".join(
+        f'<article class="stat-card"><div class="stat-value">{fmt_num(indicator_by_id.get(key, {}).get("valor", 30252 if key == "TOTAL" else 0))}</div>'
+        f'<div class="stat-label">{esc(indicator_by_id.get(key, {}).get("indicador", "Población estimada total (9 sectores)"))}</div></article>'
+        for key in ("I2", "I3", "TOTAL")
+    )
+    csv_cat_href = html.escape(ctx.site_url("geovisor/estadisticas/poblacion_por_categoria_riesgo.csv"), quote=True)
+    csv_sec_href = html.escape(ctx.site_url("geovisor/estadisticas/poblacion_por_sector.csv"), quote=True)
+    csv_cmb_href = html.escape(ctx.site_url("geovisor/estadisticas/poblacion_por_combinacion_amenazas.csv"), quote=True)
+    csv_hex_href = html.escape(ctx.site_url("geovisor/estadisticas/poblacion_por_hexagono.csv"), quote=True)
+    dashboard_html = (
+        f'<section class="section" id="dashboard-riesgo">'
+        f"<style>"
+        f".risk-dashboard-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:1rem}}"
+        f".risk-wide{{grid-column:1/-1}}"
+        f".risk-bars{{display:grid;gap:.75rem}}"
+        f".risk-bar-row{{display:grid;grid-template-columns:6.5rem 1fr 4.4rem 3.2rem;align-items:center;gap:.6rem;font-size:.85rem}}"
+        f".risk-bar-track{{height:14px;background:#edf1f6;border-radius:8px;overflow:hidden}}"
+        f".risk-bar-fill{{height:100%;border-radius:8px}}"
+        f".risk-note{{font-size:.82rem;color:var(--c-text-muted);margin-top:.75rem}}"
+        f"@media(max-width:600px){{.risk-bar-row{{grid-template-columns:5.4rem 1fr 3.7rem}}.risk-bar-row small{{display:none}}}}"
+        f"</style>"
+        f'<div class="section-header" style="margin-bottom:0.85rem;">'
+        f"<div>"
+        f'<span class="badge badge-ok">Estadísticas territoriales aprobadas · Malla de 20 m (2,470 hexágonos)</span>'
+        f'<h2 style="margin:0.25rem 0 0.2rem;">Exposición de la población a multiamenazas</h2>'
+        f"<p style=\"margin:0;color:var(--c-text-muted);font-size:0.92rem;\">Estimaciones derivadas de 30.252 habitantes distribuidos en los 2.470 hexágonos de 20 m. La protección de ríos se incorpora como condición Muy Alta.</p>"
+        f"</div>"
+        f'<div style="display:flex;flex-wrap:wrap;gap:0.4rem;">'
+        f'<a class="btn btn-outline btn-xs" href="{csv_cat_href}" download>📥 CSV Categorías</a>'
+        f'<a class="btn btn-outline btn-xs" href="{csv_sec_href}" download>📥 CSV Sectores</a>'
+        f'<a class="btn btn-outline btn-xs" href="{csv_cmb_href}" download>📥 CSV Combinaciones</a>'
+        f'<a class="btn btn-outline btn-xs" href="{csv_hex_href}" download>📥 CSV 2,470 Hexágonos</a>'
+        f"</div>"
+        f"</div>"
+        f'<div class="stats-strip" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.85rem;margin-bottom:1rem;">{indicator_cards}</div>'
+        f'<div class="risk-dashboard-grid">'
+        f'<article class="card"><h3>Población por categoría</h3><div class="risk-bars">{category_html}</div></article>'
+        f'<article class="card"><h3>Combinación de amenazas</h3><div class="table-wrap"><table><thead><tr><th>Condición</th><th>Población</th><th>% total</th></tr></thead><tbody>{combo_html}</tbody></table></div></article>'
+        f'<article class="card risk-wide"><h3>Distribución por sector</h3><div class="table-wrap"><table><thead><tr><th>Sector</th><th>Población</th><th>% total</th><th>Hexágonos (20 m)</th></tr></thead><tbody>{sector_html}</tbody></table></div><p class="risk-note">Cada celda se asigna al sector con mayor área de intersección para evitar duplicar población.</p></article>'
+        f"</div>"
+        f'<p class="risk-note">Los conteos son estimaciones para análisis territorial; la población en riesgo alto/muy alto o protección de ríos es una señal para evaluación, no una decisión individual de reubicación. Las celdas sin dato se muestran aparte.</p>'
+        f"</section>"
+    ) if category_rows else ""
 
     body = f"""
     <div class="callout" style="margin-top:0;margin-bottom:1rem;padding:0.75rem 1rem;">
@@ -1328,6 +1431,8 @@ def build_aplicacion_page(
       </div>
       <script id="geovisor-config-data" type="application/json">{safe_json_cfg}</script>
     </section>
+
+    {dashboard_html}
 
     <section class="section">
       <div class="grid-2">
@@ -2327,8 +2432,20 @@ python scripts/validate.py --site site"""
               <tr>
                 <td><strong>Tabla de Indicadores Cuantitativos</strong></td>
                 <td><code>CSV (UTF-8)</code></td>
-                <td>Métricas tabulares verificadas a partir de las capas publicadas en el Geovisor.</td>
+                <td>Métricas tabulares verificadas a partir de las capas publicadas en el Geovisor (2,470 hexágonos de 20 m).</td>
                 <td><a class="btn btn-outline btn-xs" href="{csv_href}" download="{esc(SPEC['csv_file'])}">📊 Descargar CSV</a></td>
+              </tr>
+              <tr>
+                <td><strong>Cuaderno Interactivo de Multiamenaza y Edificaciones (v1.1)</strong></td>
+                <td><code>Jupyter / Colab (.ipynb)</code></td>
+                <td>Evaluación abierta en Google Colab vinculada a las capas del repositorio GitHub y Overture Maps (CRTM05 EPSG:5367).</td>
+                <td><a class="btn btn-teal btn-xs" href="{html.escape(ctx.site_url('assets/descargas/score_multiamenaza_edificaciones.ipynb'), quote=True)}" download="score_multiamenaza_edificaciones.ipynb">📓 Descargar .ipynb</a></td>
+              </tr>
+              <tr>
+                <td><strong>Script de Tablas Estadísticas del Dashboard</strong></td>
+                <td><code>Python (.py)</code></td>
+                <td>Generador reproducible de población por categoría, combinación de amenazas y 9 sectores comunales.</td>
+                <td><a class="btn btn-outline btn-xs" href="{html.escape(ctx.site_url('assets/descargas/build_risk_statistics.py'), quote=True)}" download="build_risk_statistics.py">📜 Descargar .py</a></td>
               </tr>
               <tr>
                 <td><strong>Proyecto Estándar GeoLibre Studio</strong></td>
@@ -2511,6 +2628,13 @@ def main() -> int:
         for f in sorted(data_layers_dir.iterdir()):
             if f.is_file() and f.name != ".gitkeep":
                 shutil.copy2(f, out_dir / "geovisor" / "data" / f.name)
+
+    stats_src_dir = ROOT / "geovisor" / "estadisticas"
+    if stats_src_dir.exists():
+        (out_dir / "geovisor" / "estadisticas").mkdir(parents=True, exist_ok=True)
+        for f in sorted(stats_src_dir.iterdir()):
+            if f.is_file() and f.suffix.lower() in (".csv", ".json", ".md"):
+                shutil.copy2(f, out_dir / "geovisor" / "estadisticas" / f.name)
 
     geolibre_exts = {".geojson", ".json", ".kml", ".pmtiles", ".fgb", ".tif", ".tiff", ".parquet", ".geoparquet", ".webp", ".png"}
     capas_src_dir = ROOT / "geovisor" / "capas"
